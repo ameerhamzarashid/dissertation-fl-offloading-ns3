@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# But include baseline directory and its contents
+!baseline/
+!baseline/**
+
+# Include this gitignore file
+!.gitignore
+
+# Include README if needed
+!README.md
