@@ -109,3 +109,57 @@ baseline/
 ├── requirements.txt      # Dependencies
 └── README.md            # This file
 ```
+
+## Enhanced Features Added
+
+### Replay Buffer (`replay_buffer.py`)
+- **Simple Replay Buffer**: Basic experience replay for DQN training
+- **Prioritized Replay Buffer**: Advanced prioritized experience replay
+- **Configurable Capacity**: Adjustable buffer size and sampling
+- **Importance Sampling**: Weighted sampling for better learning
+
+### Enhanced DQN (`simple_dqn.py`)
+- **Integrated Replay Buffer**: Both simple and prioritized replay
+- **Target Network**: Stable Q-learning with periodic updates
+- **Reward Function**: Smart reward calculation for offloading decisions
+- **Model Persistence**: Save/load trained models
+- **Training Statistics**: Comprehensive monitoring and logging
+
+### FL Server with DQN (`fl_server_with_dqn.py`)
+- **Intelligent Decisions**: DQN-based offloading decisions
+- **Continuous Learning**: Online learning from client interactions
+- **Multi-threaded**: Concurrent client handling
+- **Model Persistence**: Automatic model saving/loading
+- **Training Monitoring**: Real-time training statistics
+
+## Testing Enhanced Features
+
+### Test Replay Buffer
+```bash
+python3 replay_buffer.py
+```
+
+### Test Enhanced DQN
+```bash
+python3 simple_dqn.py
+```
+
+### Run FL Server with DQN
+```bash
+python3 fl_server_with_dqn.py
+```
+
+## Enhanced Architecture
+```
+Edge Devices (NS-3) --> FL Server with DQN --> Replay Buffer
+                           ↓
+                     Smart Offloading Decisions
+                     (Local/Edge/Cloud)
+```
+
+The enhanced baseline now includes:
+✅ Experience replay for stable learning
+✅ Prioritized replay for efficient training
+✅ Smart reward functions for offloading decisions
+✅ Continuous online learning from client interactions
+✅ Model persistence and training monitoring
