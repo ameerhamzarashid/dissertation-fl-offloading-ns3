@@ -161,11 +161,11 @@ class ServerAggregator:
         
         return self.federated_averaging(client_updates, client_weights)
     
-    def robust_aggregation(self, 
+    def stable_aggregation(self, 
                           client_updates: Dict[str, Dict[str, torch.Tensor]], 
                           trim_ratio: float = 0.1) -> Dict[str, torch.Tensor]:
         """
-        Perform robust aggregation by trimming extreme updates.
+        Perform stable aggregation by trimming extreme updates.
         
         Args:
             client_updates: Dictionary mapping client IDs to their model parameter updates
@@ -198,7 +198,7 @@ class ServerAggregator:
             # Stack all parameter tensors
             stacked_params = torch.stack(param_values, dim=0)
             
-            # Calculate element-wise median (robust center)
+            # Calculate element-wise median stable center
             median_params, _ = torch.median(stacked_params, dim=0)
             
             # Calculate distances from median
@@ -216,7 +216,7 @@ class ServerAggregator:
                 # If too few clients, just use median
                 aggregated_params[param_name] = median_params
         
-        self.logger.info(f"Robust aggregation completed, used {num_clients - 2 * trim_count} out of {num_clients} clients")
+        self.logger.info(f"Stable aggregation completed, used {num_clients - 2 * trim_count} out of {num_clients} clients")
         
         return aggregated_params
     
@@ -253,9 +253,9 @@ class ServerAggregator:
             client_performance = aggregation_metadata.get('client_performance', {})
             return self.performance_weighted_averaging(client_updates, client_performance)
         
-        elif self.aggregation_method == 'robust':
+        elif self.aggregation_method == 'stable':
             trim_ratio = aggregation_metadata.get('trim_ratio', 0.1)
-            return self.robust_aggregation(client_updates, trim_ratio)
+            return self.stable_aggregation(client_updates, trim_ratio)
         
         else:
             self.logger.error(f"Unknown aggregation method: {self.aggregation_method}")
@@ -357,7 +357,7 @@ class ServerAggregator:
     
     def get_aggregation_statistics(self) -> Dict[str, Any]:
         """
-        Get comprehensive aggregation statistics.
+        Get aggregation statistics.
         
         Returns:
             Dictionary containing aggregation statistics

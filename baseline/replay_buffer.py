@@ -62,7 +62,7 @@ class ReplayBuffer:
         return len(self.buffer) >= min_size
 
 class PrioritizedReplayBuffer:
-    """Advanced prioritized experience replay buffer"""
+    """Prioritized experience replay buffer"""
     
     def __init__(self, capacity: int = 10000, alpha: float = 0.6):
         """

@@ -1,0 +1,4 @@
+[2025-08-12 10:23:47] METRICS - EXPERIMENT CONFIG:
+[2025-08-12 10:23:47] METRICS -   learning: learning_rate=0.001
+[2025-08-12 10:23:47] METRICS -   network: num_mobile_users=10
+[2025-08-12 10:23:47] METRICS - Round 1: loss=0.500000, accuracy=0.800000

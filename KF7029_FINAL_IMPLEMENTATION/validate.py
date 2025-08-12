@@ -236,7 +236,7 @@ def main():
     
     results = []
     for test_name, test_func in tests:
-        print(f"\n--- {test_name} ---")
+        print(f"{test_name}")
         try:
             result = test_func()
             results.append((test_name, result))
@@ -260,19 +260,19 @@ def main():
     print(f"Total: {passed}/{total} tests passed")
     
     if passed == total:
-        print("\n🎉 IMPLEMENTATION VALIDATED!")
-        print("✓ Configuration system working")
-        print("✓ File structure complete")
-        print("✓ Logging system functional")
-        print("✓ File management operational")
-        print("✓ MEC environment basic functions working")
-        print("✓ NS-3 interface (mock) operational")
-        print("\n📋 STATUS: Ready for ML component integration")
-        print("📋 NEXT: Install ML dependencies and test DQN/FL components")
-        print("📋 THEN: Proceed to enhanced algorithm development")
+        print("\nimplementation validated!")
+        print("- configuration system working")
+        print("- file structure complete")
+        print("- logging system functional")
+        print("- file management operational")
+        print("- mec environment basic functions working")
+        print("- ns-3 interface (mock) operational")
+        print("\nstatus: ready for ml component integration")
+        print("next: install ml dependencies and test dqn/fl components")
+        print("then: proceed to algorithm development")
     else:
-        print(f"\n⚠️  {total - passed} components need attention")
-        print("📋 FIX ISSUES: Before proceeding to ML component testing")
+        print(f"\n{total - passed} components need attention")
+        print("fix issues: before proceeding to ml component testing")
     
     return passed == total
 

@@ -1,6 +1,6 @@
 """
 Dueling DQN Implementation
-Advanced Deep Q-Network with separate value and advantage streams
+Deep Q-Network with separate value and advantage streams
 """
 
 import torch
@@ -10,6 +10,12 @@ import torch.optim as optim
 import numpy as np
 import random
 from typing import Tuple, Optional
+import sys
+import os
+
+# Add utils to path for GPU utilities
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.gpu_utils import setup_device, optimize_model_for_gpu, monitor_gpu_usage
 
 
 class DuelingDQN(nn.Module):
@@ -48,9 +54,19 @@ class DuelingDQN(nn.Module):
         # Initialize weights using Xavier initialization
         self._initialize_weights()
         
-        # Set device
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.to(self.device)
+        # Set device with GPU optimization
+        self.device = setup_device(preferred_device='cuda')
+        
+        # Optimize model for GPU if available
+        self = optimize_model_for_gpu(self, self.device)
+        
+        # Log GPU info
+        gpu_info = monitor_gpu_usage()
+        if gpu_info.get('gpu_available'):
+            print(f"dueling dqn using gpu: {self.device}")
+            print(f"gpu memory allocated: {gpu_info.get('allocated_mb', 0):.1f} mb")
+        else:
+            print(f"dueling dqn using cpu: {self.device}")
         
         # Training parameters
         self.epsilon = 1.0

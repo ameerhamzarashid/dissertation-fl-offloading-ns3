@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Baseline DQN Agent for Federated Learning Offloading
-Enhanced implementation with replay buffer for edge computing decision making
+Implementation with replay buffer for edge computing decision making
 """
 import torch
 import torch.nn as nn
@@ -29,7 +29,7 @@ class SimpleDQN(nn.Module):
         return self.network(x)
 
 class DQNAgent:
-    """Enhanced DQN Agent with replay buffer for offloading decisions"""
+    """DQN Agent with replay buffer for offloading decisions"""
     
     def __init__(self, 
                  state_dim: int = 1,
@@ -208,7 +208,7 @@ def test_dqn_with_replay():
     # Test both simple and prioritized replay
     for use_prioritized in [False, True]:
         buffer_type = "Prioritized" if use_prioritized else "Simple"
-        print(f"\n--- Testing with {buffer_type} Replay Buffer ---")
+        print(f"Testing with {buffer_type} Replay Buffer")
         
         agent = DQNAgent(use_prioritized=use_prioritized)
         

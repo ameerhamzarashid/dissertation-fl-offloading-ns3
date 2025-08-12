@@ -1,0 +1,2 @@
+[2025-08-12 10:12:58] Main_integrated_test_20250812_101258 - INFO - Experiment 'integrated_test_20250812_101258' logging configured
+[2025-08-12 10:12:58] Main_integrated_test_20250812_101258 - ERROR - Integrated system test failed: module 'torch' has no attribute 'exponential'

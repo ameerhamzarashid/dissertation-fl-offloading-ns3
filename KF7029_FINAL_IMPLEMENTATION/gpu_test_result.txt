@@ -1,0 +1,5 @@
+PyTorch version: 2.5.1+cu121
+CUDA available: True
+CUDA version: 12.1
+GPU count: 1
+GPU name: NVIDIA GeForce RTX 3050 6GB Laptop GPU

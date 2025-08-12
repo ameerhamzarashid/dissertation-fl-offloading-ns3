@@ -12,6 +12,6 @@ See `baseline/README.md` for detailed setup instructions.
 - `simple_dqn.py` - Deep Q-Network agent
 
 ## Status
-✅ Baseline implementation complete and tested
-🚀 Ready for enhanced features and experiments
+Baseline implementation complete and tested
+Ready for features and experiments
 

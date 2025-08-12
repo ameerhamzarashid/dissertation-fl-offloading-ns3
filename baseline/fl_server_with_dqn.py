@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Baseline FL Server with DQN and Replay Buffer
+Baseline FL Server with DQN and Replay Buffer
 Federated learning server with DQN agent for intelligent offloading decisions
 """
 import socket

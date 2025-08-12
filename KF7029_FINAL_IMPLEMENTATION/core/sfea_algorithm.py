@@ -1,17 +1,25 @@
 """
-Enhanced Federated Learning Algorithm with Gradient Sparsification
+Federated Learning Algorithm with Gradient Sparsification
 Implements SFEA (Sparsification-based Federated Edge-AI) algorithm
 """
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
 from typing import Dict, List, Tuple, Optional, Any
 import logging
 import copy
 import numpy as np
+import sys
+import os
 
 from .gradient_sparsification import GradientCompressor
 from .fl_coordinator import FLCoordinator
+
+# Add utils to path for GPU utilities
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.gpu_utils import setup_device, optimize_model_for_gpu, monitor_gpu_usage, clear_gpu_cache
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +27,7 @@ logger = logging.getLogger(__name__)
 class SFEAFederatedLearning:
     """
     Sparsification-based Federated Edge-AI (SFEA) Algorithm.
-    Enhanced federated learning with gradient sparsification and communication optimization.
+    Federated learning with gradient sparsification and communication optimization.
     """
     
     def __init__(self, config: Dict, model: nn.Module):
@@ -32,8 +40,18 @@ class SFEAFederatedLearning:
         """
         self.config = config
         self.global_model = model
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.global_model.to(self.device)
+        
+        # Device configuration with GPU optimization
+        self.device = setup_device(preferred_device='cuda')
+        logger.info(f"sfea using device: {self.device}")
+        
+        # Optimize model for GPU
+        self.global_model = optimize_model_for_gpu(self.global_model, self.device)
+        
+        # Monitor GPU usage
+        gpu_info = monitor_gpu_usage()
+        if gpu_info.get('gpu_available'):
+            logger.info(f"gpu memory allocated: {gpu_info.get('allocated_mb', 0):.1f} mb")
         
         # Initialize gradient compressor
         compression_config = config.get('compression', {
@@ -63,14 +81,14 @@ class SFEAFederatedLearning:
         logger.info(f"Initialized SFEA with {self.num_clients} clients, "
                    f"sparsity ratio: {compression_config.get('sparsity_ratio', 0.1)}")
     
-    def run_federated_training(self, client_datasets: Dict, 
-                             validation_data: Optional[Any] = None) -> Dict:
+    def run_federated_training(self, client_datasets: Dict[int, DataLoader], 
+                             validation_data: Optional[DataLoader] = None) -> Dict:
         """
         Run complete SFEA federated training.
         
         Args:
-            client_datasets: Dictionary mapping client_id -> dataset
-            validation_data: Optional validation dataset
+            client_datasets: Dictionary mapping client_id -> DataLoader
+            validation_data: Optional validation DataLoader
             
         Returns:
             Training results and statistics
@@ -176,7 +194,7 @@ class SFEAFederatedLearning:
         return client_models
     
     def _perform_local_training(self, selected_clients: List[int], 
-                               client_datasets: Dict, 
+                               client_datasets: Dict[int, DataLoader], 
                                client_models: Dict[int, nn.Module]) -> Tuple[Dict, Dict]:
         """Perform local training on selected clients with sparsification."""
         client_updates = {}
@@ -185,14 +203,14 @@ class SFEAFederatedLearning:
         
         for client_id in selected_clients:
             # Get client data
-            client_data = client_datasets.get(client_id)
-            if client_data is None:
+            client_dataloader = client_datasets.get(client_id)
+            if client_dataloader is None:
                 logger.warning(f"No data for client {client_id}")
                 continue
             
             # Local training
             client_model = client_models[client_id]
-            local_gradients = self._train_client_model(client_model, client_data)
+            local_gradients = self._train_client_model(client_model, client_dataloader)
             
             # Network condition simulation (could be real network monitoring)
             network_condition = self._simulate_network_condition(client_id)
@@ -226,40 +244,55 @@ class SFEAFederatedLearning:
         
         return client_updates, update_info
     
-    def _train_client_model(self, model: nn.Module, client_data: Any) -> Dict[str, torch.Tensor]:
+    def _train_client_model(self, model: nn.Module, client_dataloader: DataLoader) -> Dict[str, torch.Tensor]:
         """Train client model locally and return gradients."""
         model.train()
         optimizer = torch.optim.SGD(model.parameters(), 
-                                   lr=self.config['learning']['learning_rate'])
+                                   lr=self.config['learning']['learning_rate'],
+                                   weight_decay=1e-4)
         
         # Store initial parameters
-        initial_params = {name: param.clone() for name, param in model.named_parameters()}
+        initial_params = {name: param.clone().detach() for name, param in model.named_parameters()}
         
         # Local training loop
+        total_loss = 0.0
+        num_batches = 0
+        
         for epoch in range(self.local_epochs):
-            for batch in client_data:  # Assuming client_data is iterable
+            epoch_loss = 0.0
+            epoch_batches = 0
+            
+            for batch_idx, (features, labels) in enumerate(client_dataloader):
+                features, labels = features.to(self.device), labels.to(self.device)
+                
                 optimizer.zero_grad()
                 
-                # Forward pass (implementation depends on your model/data)
-                # This is a placeholder - implement according to your specific model
-                loss = self._compute_loss(model, batch)
+                # Forward pass
+                outputs = model(features)
+                loss = F.cross_entropy(outputs, labels)
                 
                 # Backward pass
                 loss.backward()
                 optimizer.step()
+                
+                epoch_loss += loss.item()
+                epoch_batches += 1
+            
+            if epoch_batches > 0:
+                total_loss += epoch_loss / epoch_batches
+                num_batches += 1
         
         # Calculate gradients as difference from initial parameters
         gradients = {}
         for name, param in model.named_parameters():
-            gradients[name] = initial_params[name] - param
+            if param.requires_grad:
+                gradients[name] = initial_params[name] - param.data
+        
+        # Log training statistics
+        avg_loss = total_loss / max(1, num_batches)
+        logger.debug(f"Client local training completed. Average loss: {avg_loss:.4f}")
         
         return gradients
-    
-    def _compute_loss(self, model: nn.Module, batch: Any) -> torch.Tensor:
-        """Compute loss for a batch. Override this method for your specific model."""
-        # Placeholder implementation
-        # In practice, this should implement your specific loss computation
-        return torch.tensor(0.0, requires_grad=True)
     
     def _simulate_network_condition(self, client_id: int) -> Dict:
         """Simulate network conditions. Replace with real network monitoring."""
@@ -296,7 +329,7 @@ class SFEAFederatedLearning:
                     client_grads.append(gradients[param_name])
             
             if client_grads:
-                # Simple average aggregation (can be enhanced with weights)
+                # Simple average aggregation with weights option
                 aggregated_gradients[param_name] = torch.stack(client_grads).mean(dim=0)
             else:
                 aggregated_gradients[param_name] = None
@@ -320,23 +353,36 @@ class SFEAFederatedLearning:
                 if name in aggregated_gradients and aggregated_gradients[name] is not None:
                     param.data -= aggregated_gradients[name]
     
-    def _evaluate_global_model(self, validation_data: Any) -> Dict:
+    def _evaluate_global_model(self, validation_data: DataLoader) -> Dict:
         """Evaluate global model on validation data."""
         self.global_model.eval()
         total_loss = 0.0
-        num_samples = 0
+        correct_predictions = 0
+        total_samples = 0
         
         with torch.no_grad():
-            for batch in validation_data:
-                loss = self._compute_loss(self.global_model, batch)
+            for features, labels in validation_data:
+                features, labels = features.to(self.device), labels.to(self.device)
+                
+                # Forward pass
+                outputs = self.global_model(features)
+                loss = F.cross_entropy(outputs, labels)
+                
+                # Calculate metrics
                 total_loss += loss.item()
-                num_samples += 1
+                predictions = torch.argmax(outputs, dim=1)
+                correct_predictions += (predictions == labels).sum().item()
+                total_samples += labels.size(0)
         
-        avg_loss = total_loss / num_samples if num_samples > 0 else 0.0
+        # Calculate final metrics
+        avg_loss = total_loss / len(validation_data)
+        accuracy = correct_predictions / total_samples if total_samples > 0 else 0.0
         
         return {
             'loss': avg_loss,
-            'num_samples': num_samples
+            'accuracy': accuracy,
+            'total_samples': total_samples,
+            'correct_predictions': correct_predictions
         }
     
     def _check_convergence(self, round_results: Dict) -> bool:
@@ -345,11 +391,24 @@ class SFEAFederatedLearning:
             self.convergence_metrics.append(round_results)
             return False
         
-        # Simple convergence check based on loss change
-        current_loss = round_results.get('validation_results', {}).get('loss', float('inf'))
-        previous_loss = self.convergence_metrics[-1].get('validation_results', {}).get('loss', float('inf'))
+        # Convergence check based on validation loss change
+        current_metrics = round_results.get('validation_results', {})
+        previous_metrics = self.convergence_metrics[-1].get('validation_results', {})
         
-        if abs(current_loss - previous_loss) < self.convergence_threshold:
+        current_loss = current_metrics.get('loss', float('inf'))
+        previous_loss = previous_metrics.get('loss', float('inf'))
+        
+        # Check if loss improvement is below threshold
+        loss_improvement = abs(previous_loss - current_loss)
+        if loss_improvement < self.convergence_threshold:
+            return True
+        
+        # Also check accuracy plateau (if available)
+        current_accuracy = current_metrics.get('accuracy', 0.0)
+        previous_accuracy = previous_metrics.get('accuracy', 0.0)
+        accuracy_improvement = abs(current_accuracy - previous_accuracy)
+        
+        if accuracy_improvement < 0.001:  # Very small accuracy improvement
             return True
         
         self.convergence_metrics.append(round_results)

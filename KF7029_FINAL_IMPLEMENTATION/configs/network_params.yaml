@@ -21,7 +21,7 @@ topology:
   # Base station (edge server) placement
   base_stations:
     count: 5
-    placement_strategy: "uniform_grid"  # Options: "uniform_grid", "random", "optimized"
+    placement_strategy: "uniform_grid"  # Options: "uniform_grid", "random", "standard"
     positions:  # Fixed positions for reproducibility
       - {x: 200, y: 200, z: 30}
       - {x: 800, y: 200, z: 30}

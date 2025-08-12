@@ -1,4 +1,4 @@
-# SFEA Configuration - Enhanced Federated Learning with Gradient Sparsification
+# SFEA Configuration - Federated Learning with Gradient Sparsification
 # Configuration for Sparsification-based Federated Edge-AI Algorithm
 
 # Gradient Compression Settings
@@ -15,7 +15,7 @@ compression:
     max_sparsity: 0.5
     adaptation_factor: 1.2
 
-# Enhanced Learning Parameters
+# Learning Parameters
 learning:
   global_rounds: 100
   local_epochs: 5
@@ -43,7 +43,7 @@ communication:
     latency_range: [20, 200]  # milliseconds
     loss_rate_range: [0.0, 0.1]  # packet loss rate
 
-# Enhanced DQN Configuration for SFEA
+# DQN Configuration for SFEA
 dqn:
   state_dim: 12
   action_dim: 6
@@ -96,7 +96,7 @@ network:
   communication_range: 100  # meters
   edge_server_capacity: 1000  # MIPS
   
-  # Enhanced server specifications
+  # Server specifications
   edge_servers:
     - id: 0
       position: [200, 200]
@@ -120,7 +120,23 @@ network:
       bandwidth: 110
 
 # SFEA Algorithm Specific Parameters
-sfea:
+# SFEA Algorithm Configuration
+# Sparsification-based Federated Edge-AI parameters
+
+# GPU Optimization for SFEA
+gpu_optimization:
+  auto_batch_size: true     # Automatically determine optimal batch size
+  gradient_checkpointing: true  # Save memory during training
+  compilation: true         # Compile models for faster execution
+
+# Dataset Integration
+data_config:
+  use_synthetic: true
+  batch_size: 32
+  min_samples_per_client: 200
+  max_samples_per_client: 800
+
+sfea_algorithm:
   # Sparsification strategies
   sparsification_strategies:
     - name: "conservative"

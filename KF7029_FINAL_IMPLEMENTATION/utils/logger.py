@@ -236,7 +236,7 @@ def configure_experiment_logging(experiment_name: str,
                                 config: dict, 
                                 log_directory: str = 'logs') -> tuple:
     """
-    Configure comprehensive logging for an experiment.
+    Configure logging for an experiment.
     
     Args:
         experiment_name: Name of the experiment

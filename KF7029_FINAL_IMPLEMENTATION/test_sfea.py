@@ -1,6 +1,6 @@
 """
 SFEA Implementation Test
-Tests the enhanced federated learning with gradient sparsification
+Tests the federated learning with gradient sparsification
 """
 
 import sys
@@ -217,7 +217,7 @@ def main():
     """Run SFEA implementation tests."""
     print("="*60)
     print("SFEA IMPLEMENTATION TEST")
-    print("Enhanced Federated Learning with Gradient Sparsification")
+    print("Federated Learning with Gradient Sparsification")
     print("="*60)
     
     tests = [
@@ -230,7 +230,7 @@ def main():
     
     results = []
     for test_name, test_func in tests:
-        print(f"\n--- {test_name} ---")
+        print(f"{test_name}")
         try:
             result = test_func()
             results.append((test_name, result))
@@ -255,7 +255,7 @@ def main():
     
     if passed == total:
         print("\nSFEA IMPLEMENTATION READY!")
-        print("Enhanced federated learning components operational")
+        print("federated learning components operational")
         print("Gradient sparsification system functional")
         print("Communication optimization ready")
         print("Ready for full system testing and evaluation")

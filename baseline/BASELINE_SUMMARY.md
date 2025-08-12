@@ -1,6 +1,6 @@
-# 📋 BASELINE IMPLEMENTATION SUMMARY
+# BASELINE IMPLEMENTATION SUMMARY
 
-## ✅ **COMPLETED BASELINE COMPONENTS**
+## COMPLETED BASELINE COMPONENTS
 
 ### 1. **Core Files Created:**
 - `federated_client.cc` - NS-3 edge device simulation (134 lines)
@@ -8,13 +8,13 @@
 - `simple_dqn.py` - Basic DQN agent implementation (140 lines)
 - `test_client.py` - Python test client (54 lines)
 - `requirements.txt` - Dependencies (torch, numpy)
-- `README.md` - Comprehensive documentation
+- `README.md` - Documentation
 
 ### 2. **Testing Results:**
-✅ **FL Server-Client Communication**: WORKING
-✅ **Threshold-based Offloading Strategy**: WORKING  
-✅ **Network Protocol (float states → int actions)**: WORKING
-✅ **Multi-client Support**: WORKING
+FL Server-Client Communication: WORKING
+Threshold-based Offloading Strategy: WORKING  
+Network Protocol (float states → int actions): WORKING
+Multi-client Support: WORKING
 
 ### 3. **Baseline Functionality Verified:**
 ```
@@ -26,7 +26,7 @@ Test Results:
 - 85% utilization → Cloud processing (Action 2)
 ```
 
-## 🎯 **BASELINE READY FOR GITHUB**
+## BASELINE READY FOR GITHUB
 
 ### **What Works:**
 1. **Simple FL Architecture**: Client-server communication established
@@ -41,7 +41,7 @@ Test Results:
 - **Testing**: Verified with multiple device utilization levels
 - **Scalability**: Ready for multiple NS-3 nodes
 
-## 🚀 **NEXT PHASE RECOMMENDATIONS**
+## NEXT PHASE RECOMMENDATIONS
 
 After pushing baseline to GitHub, enhance with:
 
@@ -50,12 +50,12 @@ After pushing baseline to GitHub, enhance with:
    - Performance metrics (latency, energy)
    - Session tracking and analytics
 
-2. **Advanced FL Algorithms**:
+2. **FL Algorithms**:
    - FedAvg implementation
    - Personalized federated learning
    - Adaptive aggregation strategies
 
-3. **Enhanced DQN**:
+3. **DQN**:
    - Dueling DQN architecture
    - Prioritized experience replay
    - Multi-objective reward functions
@@ -63,7 +63,7 @@ After pushing baseline to GitHub, enhance with:
 4. **Experimental Framework**:
    - Multiple network topologies
    - Realistic delay/bandwidth simulation
-   - Comprehensive evaluation metrics
+   - Evaluation metrics
 
 ## 📁 **FILE STRUCTURE READY FOR GITHUB**
 ```
@@ -77,12 +77,12 @@ baseline/
 └── BASELINE_SUMMARY.md  # This summary
 ```
 
-## ✅ **GITHUB PUSH READINESS CHECK**
+## GITHUB PUSH READINESS CHECK
 - [x] All core files created and tested
 - [x] Client-server communication verified
 - [x] Documentation complete
 - [x] Requirements specified
 - [x] Simple test cases passing
-- [x] Clean baseline implementation (no enhanced features)
+- [x] Clean baseline implementation (no features)
 
 **STATUS: BASELINE READY FOR GITHUB REPOSITORY**

@@ -1,6 +1,22 @@
 # Base Configuration for Federated Learning System
 # Contains all fundamental system parameters
 
+# GPU Configuration
+gpu:
+  enabled: true
+  preferred_device: "cuda"  # "cuda", "cpu", or specific like "cuda:0"
+  memory_fraction: 0.8      # Fraction of GPU memory to use (0.1-1.0)
+  mixed_precision: true     # Enable mixed precision training
+  benchmark_mode: true      # Enable cudnn benchmark for better performance
+
+# Dataset Configuration
+dataset:
+  total_samples: 10000
+  non_iid_alpha: 0.5  # Lower values = more non-IID distribution
+  validation_split: 0.2
+  num_features: 12  # MEC environment state dimensions
+  num_classes: 6    # Offloading decisions (local + 5 edge servers)
+
 network:
   # Network topology parameters
   num_mobile_users: 20  # Variable: 10, 20, 50 for scalability testing

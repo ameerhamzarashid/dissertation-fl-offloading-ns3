@@ -373,7 +373,7 @@ class FLCoordinator:
     
     def get_training_summary(self) -> Dict[str, Any]:
         """
-        Get comprehensive training summary.
+        Get training summary.
         
         Returns:
             Dictionary containing training statistics and metrics

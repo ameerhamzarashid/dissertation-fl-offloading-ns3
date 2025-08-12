@@ -87,14 +87,14 @@ The baseline uses a simple threshold-based strategy:
 ## Next Steps
 
 This baseline provides:
-✅ Working client-server communication
-✅ Basic FL server architecture
-✅ Simple DQN implementation
-✅ NS-3 integration template
+Working client-server communication
+Basic FL server architecture
+Simple DQN implementation
+NS-3 integration template
 
-For enhanced implementation, consider adding:
+For improved implementation, consider adding:
 - CSV data logging
-- Advanced FL algorithms
+- FL algorithms
 - Performance metrics
 - Multi-agent scenarios
 - Real network topologies
@@ -110,20 +110,20 @@ baseline/
 └── README.md            # This file
 ```
 
-## Enhanced Features Added
+## Features Added
 
 ### Replay Buffer (`replay_buffer.py`)
 - **Simple Replay Buffer**: Basic experience replay for DQN training
-- **Prioritized Replay Buffer**: Advanced prioritized experience replay
+- **Prioritized Replay Buffer**: Prioritized experience replay
 - **Configurable Capacity**: Adjustable buffer size and sampling
 - **Importance Sampling**: Weighted sampling for better learning
 
-### Enhanced DQN (`simple_dqn.py`)
+### DQN (`simple_dqn.py`)
 - **Integrated Replay Buffer**: Both simple and prioritized replay
 - **Target Network**: Stable Q-learning with periodic updates
 - **Reward Function**: Smart reward calculation for offloading decisions
 - **Model Persistence**: Save/load trained models
-- **Training Statistics**: Comprehensive monitoring and logging
+- **Training Statistics**: Monitoring and logging
 
 ### FL Server with DQN (`fl_server_with_dqn.py`)
 - **Intelligent Decisions**: DQN-based offloading decisions
@@ -132,14 +132,14 @@ baseline/
 - **Model Persistence**: Automatic model saving/loading
 - **Training Monitoring**: Real-time training statistics
 
-## Testing Enhanced Features
+## Testing Features
 
 ### Test Replay Buffer
 ```bash
 python3 replay_buffer.py
 ```
 
-### Test Enhanced DQN
+### Test DQN
 ```bash
 python3 simple_dqn.py
 ```
@@ -149,7 +149,7 @@ python3 simple_dqn.py
 python3 fl_server_with_dqn.py
 ```
 
-## Enhanced Architecture
+## Architecture
 ```
 Edge Devices (NS-3) --> FL Server with DQN --> Replay Buffer
                            ↓
@@ -157,9 +157,9 @@ Edge Devices (NS-3) --> FL Server with DQN --> Replay Buffer
                      (Local/Edge/Cloud)
 ```
 
-The enhanced baseline now includes:
-✅ Experience replay for stable learning
-✅ Prioritized replay for efficient training
-✅ Smart reward functions for offloading decisions
-✅ Continuous online learning from client interactions
-✅ Model persistence and training monitoring
+The baseline now includes:
+Experience replay for stable learning
+Prioritized replay for efficient training
+Smart reward functions for offloading decisions
+Continuous online learning from client interactions
+Model persistence and training monitoring

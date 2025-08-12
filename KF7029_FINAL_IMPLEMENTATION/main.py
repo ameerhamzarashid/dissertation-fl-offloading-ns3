@@ -1,6 +1,6 @@
 """
-Main Script - Day 1 Testing and Validation
-Tests the baseline implementation with Dueling DQN + PER + MEC Environment
+Main Script - Federated Learning System Testing and Validation
+Tests the implementation with Dueling DQN + PER + MEC Environment
 """
 
 import os
@@ -15,6 +15,9 @@ from datetime import datetime
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
 
+# Import GPU utilities first
+from utils.gpu_utils import print_gpu_summary, setup_device, clear_gpu_cache
+
 from core.fl_coordinator import FLCoordinator
 from core.sfea_algorithm import SFEAFederatedLearning
 from core.client_manager import ClientManager
@@ -26,6 +29,7 @@ from simulation.ns3_interface import MockNS3Interface
 from utils.logger import configure_experiment_logging
 from utils.file_manager import FileManager
 from utils.communication_tracker import CommunicationTracker
+from utils.synthetic_data import create_synthetic_federated_datasets, MobileOffloadingModel
 
 
 def load_configuration():
@@ -46,7 +50,7 @@ def load_configuration():
 
 def test_dueling_dqn():
     """Test Dueling DQN implementation."""
-    print("Testing Dueling DQN Implementation...")
+    print("testing dueling dqn implementation...")
     
     # Create DQN with test parameters
     state_dim = 12
@@ -74,13 +78,13 @@ def test_dueling_dqn():
     model_info = main_network.get_model_info()
     print(f"Model info: {model_info}")
     
-    print("Dueling DQN test completed successfully!\n")
+    print("dueling dqn test completed successfully!\n")
     return True
 
 
 def test_prioritized_replay():
     """Test Prioritized Experience Replay implementation."""
-    print("Testing Prioritized Experience Replay...")
+    print("testing prioritized experience replay...")
     
     # Initialize replay buffer
     buffer = PrioritizedReplayBuffer(
@@ -118,13 +122,13 @@ def test_prioritized_replay():
     stats = buffer.get_stats()
     print(f"Buffer statistics: {stats}")
     
-    print("Prioritized Experience Replay test completed successfully!\n")
+    print("prioritized experience replay test completed successfully!\n")
     return True
 
 
 def test_mec_environment():
     """Test MEC Environment implementation."""
-    print("Testing MEC Environment...")
+    print("testing mec environment...")
     
     # Load configuration
     config = load_configuration()
@@ -155,53 +159,64 @@ def test_mec_environment():
     metrics = env.get_performance_metrics()
     print(f"Performance metrics: {metrics}")
     
-    print("MEC Environment test completed successfully!\n")
+    print("mec environment test completed successfully!\n")
     return True
 
 
-def test_fl_coordinator():
-    """Test FL Coordinator implementation."""
-    print("Testing FL Coordinator...")
-    
-    # Load configuration
-    config = load_configuration()
-    
-    # Initialize coordinator
-    coordinator = FLCoordinator(config)
-    
-    # Initialize clients
-    coordinator.initialize_clients()
-    
-    # Test model distribution
-    client_models = coordinator.distribute_global_model()
-    print(f"Distributed models to {len(client_models)} clients")
-    
-    # Simulate client updates
-    client_updates = {}
-    for client_id in range(config['network']['num_mobile_users']):
-        # Create dummy update (random gradients)
-        update = {}
-        for name, param in coordinator.global_model.named_parameters():
-            update[name] = torch.randn_like(param) * 0.01
-        client_updates[client_id] = update
-    
-    # Test aggregation
-    coordinator.collect_client_updates(client_updates)
-    updated_model = coordinator.aggregate_models()
-    
-    print(f"Aggregated updates from {len(client_updates)} clients")
-    
-    # Test training summary
-    summary = coordinator.get_training_summary()
-    print(f"Training summary: {summary}")
-    
-    print("FL Coordinator test completed successfully!\n")
-    return True
+def test_sfea_algorithm():
+    """Test SFEA algorithm with synthetic data."""
+    print("testing sfea algorithm with synthetic data...")
+    try:
+        # Load configuration
+        config = load_configuration()
+        
+        # Add dataset configuration
+        config['dataset'] = {
+            'total_samples': 5000,
+            'non_iid_alpha': 0.5,
+            'validation_split': 0.2
+        }
+        config['learning']['batch_size'] = 32
+        
+        # Create synthetic datasets
+        client_datasets, validation_dataset, dataset_stats = create_synthetic_federated_datasets(config)
+        
+        print(f"Created datasets for {len(client_datasets)} clients")
+        print(f"Dataset statistics: {dataset_stats['avg_client_size']:.0f} avg samples per client")
+        
+        # Create model for offloading decisions
+        model = MobileOffloadingModel(
+            input_dim=12,  # MEC environment state dimensions
+            num_classes=6,  # Offloading decisions (local + 5 edge servers)
+            hidden_dim=128
+        )
+        
+        # Initialize SFEA algorithm
+        sfea = SFEAFederatedLearning(config, model)
+        
+        # Run a few rounds of federated training
+        config['learning']['global_rounds'] = 3  # Reduced for testing
+        config['learning']['local_epochs'] = 2
+        
+        print("Starting SFEA federated training...")
+        results = sfea.run_federated_training(client_datasets, validation_dataset)
+        
+        print(f"Training completed: {results['total_rounds']} rounds")
+        print(f"Communication efficiency: {results['communication_efficiency']}")
+        print(f"Final compression ratio: {results['average_compression_ratio']:.3f}")
+        
+        return True
+        
+    except Exception as e:
+        print(f"sfea algorithm test failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 
 def test_ns3_interface():
     """Test NS-3 Interface (Mock) implementation."""
-    print("Testing NS-3 Interface (Mock)...")
+    print("testing ns-3 interface (mock)...")
     
     # Load configuration
     config = load_configuration()
@@ -236,78 +251,97 @@ def test_ns3_interface():
         # Stop simulation
         ns3_interface.stop_simulation()
     
-    print("NS-3 Interface test completed successfully!\n")
+    print("ns-3 interface test completed successfully!\n")
     return True
 
 
 def test_integrated_system():
-    """Test integrated system with all components."""
-    print("Testing Integrated System...")
+    """Test integrated system with all components including SFEA."""
+    print("testing integrated system with sfea...")
     
     # Load configuration
     config = load_configuration()
     
-    # Reduce scale for testing
-    config['network']['num_mobile_users'] = 5
-    config['learning']['global_rounds'] = 3
-    config['learning']['local_epochs'] = 2
+    # Add dataset configuration for testing
+    config['dataset'] = {
+        'total_samples': 2000,  # Smaller for testing
+        'non_iid_alpha': 0.5,
+        'validation_split': 0.2
+    }
+    config['learning']['batch_size'] = 16
+    config['network']['num_mobile_users'] = 5  # Reduced for testing
+    config['learning']['global_rounds'] = 2
+    config['learning']['local_epochs'] = 1
     
     # Setup logging
-    experiment_name = f"day1_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    experiment_name = f"integrated_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     main_logger, perf_logger, metrics_logger = configure_experiment_logging(
         experiment_name, config, 'logs'
     )
     
-    # Initialize components
-    coordinator = FLCoordinator(config)
-    mec_env = MECEnvironment(config)
-    ns3_interface = MockNS3Interface(config)
-    
-    # Start NS-3 simulation
-    scenario_config = {'num_users': 5, 'num_servers': 5}
-    ns3_interface.start_simulation(scenario_config)
-    
-    # Initialize FL clients
-    coordinator.initialize_clients()
-    
-    main_logger.info("Starting integrated system test")
-    
-    # Run a few federated learning rounds
-    for round_num in range(config['learning']['global_rounds']):
+    try:
+        # Create synthetic datasets
+        client_datasets, validation_dataset, dataset_stats = create_synthetic_federated_datasets(config)
+        main_logger.info(f"Created synthetic datasets: {dataset_stats['num_clients']} clients")
+        
+        # Create model
+        model = MobileOffloadingModel(input_dim=12, num_classes=6, hidden_dim=64)
+        
+        # Initialize SFEA system
+        sfea = SFEAFederatedLearning(config, model)
+        
+        # Initialize other components
+        mec_env = MECEnvironment(config)
+        ns3_interface = MockNS3Interface(config)
+        
+        # Start NS-3 simulation
+        scenario_config = {'num_users': 5, 'num_servers': 5}
+        ns3_interface.start_simulation(scenario_config)
+        
+        main_logger.info("Starting integrated SFEA system test")
+        
+        # Run federated learning
         start_time = time.time()
+        results = sfea.run_federated_training(client_datasets, validation_dataset)
+        training_time = time.time() - start_time
         
-        # Run federated round
-        round_metrics = coordinator.run_federated_round(round_num, mec_env)
+        # Log results
+        main_logger.info(f"SFEA training completed in {training_time:.2f} seconds")
+        main_logger.info(f"Results: {results['communication_efficiency']}")
         
-        # Log performance
-        round_time = time.time() - start_time
-        perf_logger.log_timing(f"FL_Round_{round_num}", round_time)
-        metrics_logger.log_training_metrics(round_num, round_metrics)
+        # Get final metrics
+        mec_metrics = mec_env.get_performance_metrics()
+        ns3_status = ns3_interface.get_simulation_status()
+        compression_stats = sfea.get_compression_stats()
         
-        main_logger.info(f"Round {round_num} completed: {round_metrics}")
-    
-    # Get final results
-    training_summary = coordinator.get_training_summary()
-    mec_metrics = mec_env.get_performance_metrics()
-    ns3_status = ns3_interface.get_simulation_status()
-    
-    print(f"Training Summary: {training_summary}")
-    print(f"MEC Metrics: {mec_metrics}")
-    print(f"NS-3 Status: {ns3_status}")
-    
-    # Cleanup
-    ns3_interface.stop_simulation()
-    
-    main_logger.info("Integrated system test completed successfully")
-    print("Integrated System test completed successfully!\n")
-    return True
+        print(f"Training rounds: {results['total_rounds']}")
+        print(f"Communication savings: {results['communication_efficiency']['compression_savings']:.1%}")
+        print(f"Average compression ratio: {results['average_compression_ratio']:.3f}")
+        print(f"Total communication cost: {results['total_communication_cost']}")
+        
+        # Cleanup
+        ns3_interface.stop_simulation()
+        
+        main_logger.info("Integrated SFEA system test completed successfully")
+        return True
+        
+    except Exception as e:
+        main_logger.error(f"Integrated system test failed: {e}")
+        print(f"Integrated system test failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 
 def main():
-    """Main function to run all Day 1 tests."""
+    """Main function to run all system tests."""
+    
+    # Print GPU summary first
+    print_gpu_summary()
+    
     print("="*60)
-    print("DAY 1 IMPLEMENTATION TESTING")
-    print("Federated Learning with Dueling DQN + PER + MEC Environment")
+    print("federated learning system testing")
+    print("federated learning with dueling dqn + per + mec environment")
     print("="*60)
     
     # Set random seeds for reproducibility
@@ -321,40 +355,43 @@ def main():
         ("Dueling DQN", test_dueling_dqn),
         ("Prioritized Experience Replay", test_prioritized_replay),
         ("MEC Environment", test_mec_environment),
-        ("FL Coordinator", test_fl_coordinator),
+        ("SFEA Algorithm with Synthetic Data", test_sfea_algorithm),
         ("NS-3 Interface", test_ns3_interface),
         ("Integrated System", test_integrated_system)
     ]
     
     for test_name, test_function in tests:
         try:
-            print(f"Running {test_name} test...")
+            print(f"running {test_name} test...")
             result = test_function()
             test_results.append((test_name, result))
-            print(f"{test_name} test: {'PASSED' if result else 'FAILED'}")
+            print(f"{test_name} test: {'passed' if result else 'failed'}")
         except Exception as e:
-            print(f"{test_name} test FAILED with error: {e}")
+            print(f"{test_name} test failed with error: {e}")
             test_results.append((test_name, False))
         print("-" * 40)
     
     # Summary
-    print("\nDAY 1 TEST RESULTS SUMMARY:")
+    print("\nsystem test results summary:")
     print("="*40)
     passed_tests = sum(1 for _, result in test_results if result)
     total_tests = len(test_results)
     
     for test_name, result in test_results:
-        status = "PASSED" if result else "FAILED"
+        status = "passed" if result else "failed"
         print(f"{test_name:.<30} {status}")
     
     print("-" * 40)
-    print(f"Total: {passed_tests}/{total_tests} tests passed")
+    print(f"total: {passed_tests}/{total_tests} tests passed")
     
     if passed_tests == total_tests:
-        print("\nALL TESTS PASSED! Day 1 implementation is ready.")
-        print("Proceed to Day 2: SFEA Algorithm Development")
+        print("\nall tests passed! implementation is ready.")
+        print("system validation completed successfully!")
     else:
-        print(f"\n{total_tests - passed_tests} tests failed. Please fix issues before proceeding.")
+        print(f"\n{total_tests - passed_tests} tests failed. please fix issues before proceeding.")
+    
+    # Clear GPU cache at the end
+    clear_gpu_cache()
     
     return passed_tests == total_tests
 

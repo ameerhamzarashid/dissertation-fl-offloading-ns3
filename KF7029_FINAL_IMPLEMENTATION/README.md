@@ -5,14 +5,14 @@ This repository contains the complete implementation of **Sparsification-based F
 
 ## Key Features
 
-### 🚀 Core Components
-- **Federated Learning Framework**: Complete FL coordination with client-server architecture
-- **Dueling DQN**: Advanced reinforcement learning with separated value/advantage streams
-- **Prioritized Experience Replay**: TD-error based experience sampling for improved learning
-- **MEC Environment Simulation**: Realistic edge computing environment with task generation
-- **NS-3 Integration**: Network simulation interface for realistic communication modeling
+### core components
+- **federated learning framework**: complete fl coordination with client-server architecture
+- **dueling dqn**: reinforcement learning with separated value/advantage streams
+- **prioritized experience replay**: td-error based experience sampling for improved learning
+- **mec environment simulation**: realistic edge computing environment with task generation
+- **ns-3 integration**: network simulation interface for realistic communication modeling
 
-### 📡 SFEA Algorithm Features
+### sfea algorithm features
 - **Gradient Sparsification**: Top-k compression with configurable ratios (10%, 20%, 50%)
 - **Error Accumulation**: Gradient preservation mechanism to maintain learning quality
 - **Adaptive Compression**: Dynamic compression based on network conditions
@@ -21,7 +21,7 @@ This repository contains the complete implementation of **Sparsification-based F
 
 ### ⚙️ Configuration Management
 - **Multiple Scenarios**: Baseline, compressed (10%, 20%, 50%), and adaptive compression
-- **Flexible Parameters**: Comprehensive configuration system for all components
+- **Flexible Parameters**: Configuration system for all components
 - **Experimental Setup**: Ready-to-run experimental configurations
 
 ## Repository Structure
@@ -41,7 +41,7 @@ KF7029_FINAL_IMPLEMENTATION/
 │   ├── mec_environment.py         # MEC environment modeling
 │   └── ns3_interface.py           # NS-3 network simulation
 ├── utils/                          # Utilities and monitoring
-│   ├── logger.py                  # Comprehensive logging system
+│   ├── logger.py                  # Logging system
 │   ├── file_manager.py            # File management utilities
 │   └── communication_tracker.py   # Communication efficiency tracking
 ├── configs/                        # Configuration files
@@ -54,9 +54,48 @@ KF7029_FINAL_IMPLEMENTATION/
 └── requirements.txt               # Python dependencies
 ```
 
-## Quick Start
+## gpu acceleration
 
-### 1. Installation
+this implementation uses nvidia gpus for accelerated training:
+
+### automatic gpu detection
+- automatically detects and configures available cuda gpus
+- falls back to cpu if gpu is not available
+- supports multiple gpu setups (uses gpu 0 by default)
+
+### gpu optimizations
+- **mixed precision training**: reduces memory usage and increases speed
+- **model compilation**: pytorch 2.0+ optimization for faster execution  
+- **memory management**: automatic memory allocation and cleanup
+- **batch size optimization**: automatically determines optimal batch sizes
+
+### gpu configuration
+edit `configs/base_config.yaml` to customize gpu settings:
+```yaml
+gpu:
+  enabled: true
+  preferred_device: "cuda"    # or "cpu", "cuda:0", etc.
+  memory_fraction: 0.8        # use 80% of gpu memory
+  mixed_precision: true       # enable mixed precision
+  benchmark_mode: true        # optimize for performance
+```
+
+### gpu monitoring
+the system provides real-time gpu monitoring:
+- memory usage tracking
+- utilization monitoring  
+- performance metrics
+- automatic cache cleanup
+
+### gpu test
+run the gpu test to verify your setup:
+```bash
+python test_gpu.py
+```
+
+## quick start
+
+### 1. installation
 ```bash
 # Clone the repository
 git clone https://github.com/ameerhamzarashid/dissertation-fl-offloading-ns3.git
@@ -155,7 +194,7 @@ Core requirements:
 
 ## Testing
 
-Comprehensive testing framework included:
+Testing framework included:
 - Structure validation (`validate.py`)
 - Component testing (`test_sfea.py`)
 - Integration testing (`main.py`)
