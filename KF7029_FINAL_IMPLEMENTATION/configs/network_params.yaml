@@ -1,0 +1,207 @@
+# Network Parameters for NS-3 Simulation
+# Specific parameters for NS-3 network simulation environment
+
+simulation:
+  # Simulation time and control
+  duration: 600.0  # seconds (10 minutes per experiment)
+  step_size: 0.1   # seconds (simulation time step)
+  warm_up_time: 60.0  # seconds (warm-up before data collection)
+  
+  # Random number generation
+  rng_seed: 42
+  rng_stream: 1
+
+topology:
+  # Network area and layout
+  area:
+    width: 1000.0  # meters
+    height: 1000.0  # meters
+    boundary_type: "rectangular"
+  
+  # Base station (edge server) placement
+  base_stations:
+    count: 5
+    placement_strategy: "uniform_grid"  # Options: "uniform_grid", "random", "optimized"
+    positions:  # Fixed positions for reproducibility
+      - {x: 200, y: 200, z: 30}
+      - {x: 800, y: 200, z: 30}
+      - {x: 500, y: 500, z: 30}
+      - {x: 200, y: 800, z: 30}
+      - {x: 800, y: 800, z: 30}
+    
+    # Base station specifications
+    transmission_power: 46  # dBm (40W)
+    antenna_height: 30  # meters
+    antenna_gain: 15  # dBi
+    noise_figure: 5  # dB
+
+mobile_users:
+  # Mobile user distribution and characteristics
+  initial_distribution: "uniform_random"
+  positions:
+    boundary_margin: 50  # meters from edge
+  
+  # Device specifications
+  transmission_power: 23  # dBm (200 mW)
+  antenna_height: 1.5  # meters
+  antenna_gain: 0  # dBi (omnidirectional)
+  noise_figure: 7  # dB
+
+mobility_model:
+  # Gaussian-Markov mobility implementation in NS-3
+  type: "GaussianRandomWalk2dMobilityModel"
+  parameters:
+    bounds: 
+      min_x: 0
+      max_x: 1000
+      min_y: 0
+      max_y: 1000
+    mode: "time"
+    time: "1s"  # Update interval
+    speed: "ns3::UniformRandomVariable[Min=1.0|Max=10.0]"  # m/s
+    direction: "ns3::UniformRandomVariable[Min=0|Max=6.283185307]"  # radians
+
+channel_model:
+  # Wireless channel characteristics
+  propagation_model: "LogDistancePropagationLossModel"
+  propagation_parameters:
+    exponent: 3.5
+    reference_distance: 1.0  # meters
+    reference_loss: 40.0  # dB
+  
+  # Shadowing model
+  shadowing_model: "RandomPropagationLossModel"
+  shadowing_parameters:
+    variable: "ns3::NormalRandomVariable[Mean=0.0|Variance=64.0]"  # 8dB std
+  
+  # Fast fading
+  fading_model: "NakagamiPropagationLossModel"
+  fading_parameters:
+    m0: 1.0  # Nakagami m parameter (1.0 = Rayleigh)
+    m1: 1.0
+    m2: 1.0
+
+spectrum:
+  # Spectrum and frequency allocation
+  frequency: 2.4e9  # Hz (2.4 GHz)
+  bandwidth: 20e6   # Hz (20 MHz total)
+  
+  # Channel allocation
+  num_channels: 4
+  channel_bandwidth: 5e6  # Hz (5 MHz per channel)
+  
+  # Interference model
+  interference_model: "MultiModelSpectrumChannel"
+
+mac_layer:
+  # Medium Access Control parameters
+  protocol: "WiFi"  # Using WiFi MAC as baseline
+  standard: "802.11n"
+  
+  # WiFi specific parameters
+  data_rate: "HtMcs7"  # 54 Mbps (approximately)
+  control_rate: "OfdmRate6Mbps"
+  
+  # Access control
+  queue_size: 100  # packets
+  retry_limit: 7
+
+network_layer:
+  # IP and routing configuration
+  addressing:
+    network: "10.1.0.0"
+    mask: "255.255.0.0"
+    base: "10.1.1.0"
+  
+  # Routing protocol
+  routing_protocol: "static"  # Options: "static", "aodv", "dsdv"
+
+application_layer:
+  # Federated learning application parameters
+  server_applications:
+    type: "FederatedLearningServer"
+    port: 8888
+    parameters:
+      max_clients: 50
+      round_duration: 30  # seconds
+      aggregation_timeout: 60  # seconds
+  
+  client_applications:
+    type: "FederatedLearningClient"
+    parameters:
+      server_port: 8888
+      local_training_time: 20  # seconds
+      update_transmission_time: 5  # seconds
+
+traffic_model:
+  # Task generation and traffic patterns
+  task_arrival:
+    model: "Poisson"
+    rate: 0.5  # tasks per second per client
+    packet_size_distribution: "Uniform"
+    packet_size_min: 512   # bytes (control packets)
+    packet_size_max: 1024  # bytes (control packets)
+  
+  # Model update traffic
+  model_update:
+    size_baseline: 1048576  # bytes (1 MB - full model)
+    size_compressed: 104857  # bytes (0.1 MB - 10% sparsity)
+    transmission_interval: 30  # seconds (per round)
+
+quality_of_service:
+  # QoS parameters for different traffic types
+  control_traffic:
+    priority: "high"
+    max_delay: 100  # ms
+    max_jitter: 10  # ms
+  
+  data_traffic:
+    priority: "medium"
+    max_delay: 1000  # ms
+    throughput_guarantee: 1e6  # bps (1 Mbps)
+  
+  background_traffic:
+    priority: "low"
+    best_effort: true
+
+measurement:
+  # Data collection and metrics
+  collection_interval: 1.0  # seconds
+  
+  # Performance metrics to collect
+  metrics:
+    - "throughput"
+    - "latency"
+    - "packet_loss"
+    - "energy_consumption"
+    - "channel_utilization"
+    - "interference_level"
+  
+  # Trace file configuration
+  pcap_tracing: false  # Set to true for detailed packet analysis
+  ascii_tracing: true
+  flow_monitor: true
+
+energy_model:
+  # Device energy consumption modeling
+  battery_model: "LinearBatteryModel"
+  
+  # Energy consumption parameters
+  mobile_device:
+    initial_energy: 1000.0  # Joules (simplified)
+    idle_power: 0.1  # Watts
+    tx_power: 0.2   # Watts (200 mW)
+    rx_power: 0.15  # Watts
+    processing_power: 2.0  # Watts (during computation)
+  
+  base_station:
+    power_consumption: 100.0  # Watts (constant)
+
+output:
+  # Output file configuration
+  results_directory: "ns3_results"
+  trace_directory: "ns3_traces"
+  
+  # File naming convention
+  experiment_prefix: "fl_experiment"
+  timestamp_format: "%Y%m%d_%H%M%S"

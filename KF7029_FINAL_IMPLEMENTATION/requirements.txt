@@ -1,0 +1,53 @@
+# Core ML/DL frameworks
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+scipy>=1.7.0
+
+# Federated Learning
+flwr>=1.5.0  # Flower framework (optional for reference)
+tensorboard>=2.10.0
+
+# Configuration and Utilities
+PyYAML>=6.0
+pydantic>=1.10.0
+
+# Logging and Monitoring
+loguru>=0.6.0
+tqdm>=4.64.0
+psutil>=5.9.0
+
+# Data Analysis and Visualization
+pandas>=1.5.0
+matplotlib>=3.6.0
+seaborn>=0.11.0
+plotly>=5.10.0
+
+# Network Simulation (NS-3 Python bindings)
+# Note: NS-3 requires separate installation, this is for Python interface
+pybindgen>=0.22.0
+pygccxml>=2.2.0
+
+# Development and Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=0.991
+
+# Additional utilities
+pathlib2>=2.3.0
+click>=8.0.0
+rich>=12.0.0
+
+# Statistical analysis
+scikit-learn>=1.2.0
+statsmodels>=0.14.0
+
+# Optional: For advanced networking
+networkx>=2.8.0
+paramiko>=2.11.0  # For remote execution
+
+# Optional: For performance profiling
+line_profiler>=4.0.0
+memory_profiler>=0.60.0

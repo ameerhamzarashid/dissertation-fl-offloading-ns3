@@ -5,8 +5,19 @@
 !baseline/
 !baseline/**
 
+# Include final implementation directory and its contents
+!KF7029_FINAL_IMPLEMENTATION/
+!KF7029_FINAL_IMPLEMENTATION/**
+
 # Include this gitignore file
 !.gitignore
 
 # Include README if needed
 !README.md
+
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env

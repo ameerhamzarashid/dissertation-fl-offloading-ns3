@@ -1,0 +1,141 @@
+# Base Configuration for Federated Learning System
+# Contains all fundamental system parameters
+
+network:
+  # Network topology parameters
+  num_mobile_users: 20  # Variable: 10, 20, 50 for scalability testing
+  num_edge_servers: 5   # Fixed: 5 edge servers as base stations
+  simulation_area:
+    width: 1000   # meters
+    height: 1000  # meters
+  
+  # Wireless communication parameters
+  total_bandwidth: 20.0  # MHz
+  transmission_power: 0.2  # Watts (200 mW = 23 dBm)
+  noise_power_density: -174  # dBm/Hz (thermal noise at room temperature)
+  
+  # Channel model parameters
+  path_loss_exponent: 3.5
+  shadowing_std: 8.0  # dB
+  fading_model: "rayleigh"
+
+learning:
+  # Deep Q-Network architecture
+  state_dim: 12  # [task_queue_length, battery_level, latency_to_servers(5), load_indicators(5)]
+  action_dim: 6  # [local_compute] + [offload_to_server_1, ..., offload_to_server_5]
+  hidden_dim: 128
+  
+  # Training parameters
+  global_rounds: 100
+  local_epochs: 5
+  batch_size: 32
+  learning_rate: 0.001
+  gamma: 0.99  # Discount factor
+  
+  # Exploration parameters
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+  
+  # Target network update
+  target_update_frequency: 100
+  soft_update_tau: 0.005
+
+experience_replay:
+  # Prioritized Experience Replay parameters
+  buffer_capacity: 10000
+  alpha: 0.6  # Prioritization exponent
+  beta_start: 0.4  # Importance sampling exponent
+  beta_increment: 0.001
+  epsilon: 1e-6  # Small constant to prevent zero priorities
+  min_buffer_size: 1000  # Minimum buffer size before training
+
+task_generation:
+  # Poisson task arrival process
+  arrival_rate: 0.5  # tasks per second per user
+  
+  # Task characteristics (uniform distributions)
+  data_size:
+    min: 10  # MB
+    max: 20  # MB
+  
+  computational_complexity:
+    min: 900   # Megacycles
+    max: 1100  # Megacycles
+
+device_capabilities:
+  # Mobile user device specifications
+  mobile_user:
+    cpu_frequency: 1.5  # GHz
+    battery_capacity: 3000  # mAh
+    memory: 4  # GB
+  
+  # Edge server specifications
+  edge_server:
+    cpu_frequency: 15.0  # GHz
+    memory: 32  # GB
+    storage: 1000  # GB
+
+mobility:
+  # Gaussian-Markov mobility model
+  model_type: "gaussian_markov"
+  parameters:
+    alpha: 0.5  # Memory parameter (0 = memoryless, 1 = full memory)
+    velocity_mean: 5.0  # m/s
+    velocity_std: 2.0   # m/s
+    direction_std: 0.5  # radians
+    update_interval: 1.0  # seconds
+
+federated_learning:
+  # Client selection and participation
+  client_selection_strategy: "all"  # Options: "all", "random", "performance_based"
+  min_clients_per_round: 5
+  max_clients_per_round: 50
+  client_timeout: 30  # seconds
+  
+  # Aggregation parameters
+  aggregation_method: "fedavg"  # Options: "fedavg", "weighted_fedavg", "performance_weighted"
+  convergence_threshold: 0.001
+  early_stopping_patience: 10
+
+communication:
+  # Communication protocol settings
+  host: "localhost"
+  port: 8888
+  message_timeout: 10  # seconds
+  max_retries: 3
+  compression_enabled: false  # Will be true for SFEA algorithm
+
+logging:
+  # Logging configuration
+  level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR"
+  console_output: true
+  file_output: true
+  log_directory: "logs"
+  
+  # Performance logging
+  performance_logging: true
+  metrics_logging: true
+
+evaluation:
+  # Evaluation parameters
+  num_episodes: 10
+  evaluation_frequency: 5  # Evaluate every N rounds
+  test_scenarios:
+    - name: "low_load"
+      num_users: 10
+    - name: "medium_load"
+      num_users: 20
+    - name: "high_load"
+      num_users: 50
+
+system:
+  # System-wide settings
+  random_seed: 42
+  device: "auto"  # Options: "auto", "cpu", "cuda"
+  num_workers: 4  # For parallel processing
+  save_frequency: 10  # Save checkpoints every N rounds
+  
+  # Memory management
+  memory_limit_gb: 8
+  cleanup_frequency: 100  # Clean up temporary files every N rounds

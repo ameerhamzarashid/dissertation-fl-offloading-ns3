@@ -1,0 +1,212 @@
+# SFEA Configuration - Enhanced Federated Learning with Gradient Sparsification
+# Configuration for Sparsification-based Federated Edge-AI Algorithm
+
+# Gradient Compression Settings
+compression:
+  enabled: true
+  type: "topk"  # Options: "topk", "adaptive"
+  sparsity_ratio: 0.1  # Keep top 10% of gradients
+  accumulate_error: true
+  
+  # Adaptive sparsification settings (when type="adaptive")
+  adaptive:
+    initial_sparsity: 0.1
+    min_sparsity: 0.05
+    max_sparsity: 0.5
+    adaptation_factor: 1.2
+
+# Enhanced Learning Parameters
+learning:
+  global_rounds: 100
+  local_epochs: 5
+  learning_rate: 0.01
+  client_fraction: 1.0  # Fraction of clients to select each round
+  convergence_threshold: 1e-4
+  
+  # Learning rate scheduling
+  lr_schedule:
+    enabled: true
+    type: "step"  # Options: "step", "exponential", "cosine"
+    step_size: 20
+    gamma: 0.8
+
+# Communication Optimization
+communication:
+  budget_limit: 1000000  # Total communication budget (bytes)
+  round_timeout: 300  # Timeout per round (seconds)
+  compression_quality_threshold: 0.95  # Minimum compression quality
+  
+  # Network simulation parameters
+  network_simulation:
+    enabled: true
+    bandwidth_range: [1.0, 10.0]  # Mbps
+    latency_range: [20, 200]  # milliseconds
+    loss_rate_range: [0.0, 0.1]  # packet loss rate
+
+# Enhanced DQN Configuration for SFEA
+dqn:
+  state_dim: 12
+  action_dim: 6
+  hidden_dim: 256
+  learning_rate: 0.001
+  batch_size: 64
+  memory_size: 10000
+  target_update_freq: 100
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+  
+  # Dueling DQN specific
+  dueling:
+    enabled: true
+    value_hidden_dim: 128
+    advantage_hidden_dim: 128
+  
+  # Prioritized Experience Replay
+  priority_replay:
+    enabled: true
+    alpha: 0.6  # Prioritization exponent
+    beta: 0.4   # Importance sampling exponent
+    beta_increment: 0.001
+
+# Environment Configuration
+environment:
+  area_width: 1000  # meters
+  area_height: 1000  # meters
+  num_edge_servers: 5
+  max_mobile_users: 50
+  
+  # Task generation parameters
+  task_generation:
+    arrival_rate: 2.0  # tasks per second (Poisson process)
+    cpu_cycles_range: [100, 1000]  # mega cycles
+    data_size_range: [1, 10]  # MB
+    deadline_range: [1.0, 5.0]  # seconds
+  
+  # Mobility model
+  mobility:
+    model: "gaussian_markov"
+    speed_range: [1, 5]  # m/s
+    direction_variance: 0.1
+    update_interval: 1.0  # seconds
+
+# Network Configuration for SFEA
+network:
+  num_mobile_users: 20
+  communication_range: 100  # meters
+  edge_server_capacity: 1000  # MIPS
+  
+  # Enhanced server specifications
+  edge_servers:
+    - id: 0
+      position: [200, 200]
+      capacity: 1000  # MIPS
+      bandwidth: 100  # Mbps
+    - id: 1
+      position: [800, 200]
+      capacity: 1200
+      bandwidth: 120
+    - id: 2
+      position: [500, 500]
+      capacity: 1500
+      bandwidth: 150
+    - id: 3
+      position: [200, 800]
+      capacity: 1000
+      bandwidth: 100
+    - id: 4
+      position: [800, 800]
+      capacity: 1100
+      bandwidth: 110
+
+# SFEA Algorithm Specific Parameters
+sfea:
+  # Sparsification strategies
+  sparsification_strategies:
+    - name: "conservative"
+      sparsity_ratio: 0.05
+      error_weight: 0.8
+    - name: "moderate" 
+      sparsity_ratio: 0.1
+      error_weight: 0.6
+    - name: "aggressive"
+      sparsity_ratio: 0.2
+      error_weight: 0.4
+  
+  # Error accumulation settings
+  error_accumulation:
+    enabled: true
+    decay_factor: 0.9  # Error decay over rounds
+    compensation_weight: 1.0
+    max_error_norm: 10.0
+  
+  # Convergence criteria
+  convergence:
+    max_rounds: 200
+    loss_threshold: 1e-4
+    patience: 10  # Rounds without improvement before stopping
+    min_improvement: 1e-5
+
+# Experimental Configuration
+experiment:
+  # Test scenarios
+  scenarios:
+    - name: "baseline_no_compression"
+      compression_enabled: false
+      description: "Baseline federated learning without compression"
+    
+    - name: "topk_10_percent"
+      compression_enabled: true
+      sparsity_ratio: 0.1
+      description: "Top-k sparsification with 10% gradient retention"
+    
+    - name: "topk_20_percent"
+      compression_enabled: true
+      sparsity_ratio: 0.2
+      description: "Top-k sparsification with 20% gradient retention"
+    
+    - name: "adaptive_compression"
+      compression_enabled: true
+      compression_type: "adaptive"
+      description: "Adaptive sparsification based on network conditions"
+  
+  # Performance metrics to track
+  metrics:
+    - convergence_speed
+    - communication_efficiency
+    - model_accuracy
+    - bandwidth_usage
+    - round_completion_time
+    - compression_ratio
+    - error_accumulation_impact
+
+# Logging and Monitoring
+logging:
+  level: "INFO"
+  console_output: true
+  file_output: true
+  
+  # Detailed logging components
+  components:
+    sfea_algorithm: "DEBUG"
+    gradient_compression: "INFO"
+    communication_tracker: "INFO"
+    mec_environment: "WARNING"
+    
+  # Export settings
+  export:
+    format: "json"
+    include_raw_data: false
+    compression: true
+
+# Resource Monitoring
+resources:
+  monitor_cpu: true
+  monitor_memory: true
+  monitor_network: true
+  
+  # Thresholds for alerts
+  thresholds:
+    cpu_usage: 80  # percent
+    memory_usage: 85  # percent
+    network_latency: 500  # milliseconds
