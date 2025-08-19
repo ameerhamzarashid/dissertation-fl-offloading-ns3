@@ -1,0 +1,36 @@
+seed: 42
+experiment_name: "baseline_dense"
+data:
+  users: 30
+  servers: 3
+  steps_per_episode: 50
+  episodes_per_round: 5
+  deadline_s: 1.0
+  D_bits: [4e6, 12e6]
+  C_cycles: [1e8, 5e8]
+channel:
+  B_hz: 20_000_000
+  Pt_dBm: 23
+  NF_dB: 7
+  shadow_sigma_dB: 8
+  fading: "rayleigh"
+  area_m: [0, 1000, 0, 1000]
+  server_positions: [[0,0],[1000,0],[500,866]]
+  step_mobility_sigma: 2
+sim:
+  rounds: 60
+  batch_size: 64
+  discount: 0.95
+  lr: 1.0e-3
+  eps_start: 1.0
+  eps_end: 0.1
+  eps_decay_rounds: 60
+fl:
+  client_frac: 1.0
+  compress_topk: 0.0
+system:
+  lambda_energy: 0.001
+  f_user_hz: 2.0e9
+  F_edge_hz: 5.0e10
+  sigma: 1.0e-28
+  Ptx_w: 0.5
