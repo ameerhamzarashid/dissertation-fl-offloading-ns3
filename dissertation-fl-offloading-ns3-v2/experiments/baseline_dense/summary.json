@@ -1,0 +1,28 @@
+{
+  "round": [
+    0
+  ],
+  "bytes": [
+    1000000
+  ],
+  "reward": [
+    -0.6
+  ],
+  "latency_ms": [
+    32.0
+  ],
+  "deadline_ok": [
+    0.85
+  ],
+  "reward_baseline": [
+    -0.65
+  ],
+  "latency_ms_baseline": [
+    34.0
+  ],
+  "deadline_ok_baseline": [
+    0.82
+  ],
+  "saved_model": "experiments/baseline_dense/global.pt",
+  "timestamp": 1755517333.696873
+}

@@ -14,3 +14,8 @@
 # Include the dis-v2 folder and its contents
 !dis-v2/
 !dis-v2/**
+
+# Include dissertation-fl-offloading-ns3-v2 but exclude its env and ns3
+!dissertation-fl-offloading-ns3-v2/
+!dissertation-fl-offloading-ns3-v2/**
+dissertation-fl-offloading-ns3-v2/.venv/
