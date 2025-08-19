@@ -10,3 +10,7 @@
 
 # Include README if needed
 !README.md
+
+# Include the dis-v2 folder and its contents
+!dis-v2/
+!dis-v2/**
