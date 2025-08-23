@@ -1,0 +1,94 @@
+version: 1
+description: Base simulation + FL config for NS-3 co-sim (energy-first).
+
+simulation:
+  duration_s: 600                 # total simulated seconds (tunable)
+  seed: 42
+  area_m: [1000, 1000]            # 1000m x 1000m
+  n_mobile_users: 20              # default medium-load; varied in experiments
+  n_edge_servers: 5               # multi-server MEC
+  mobility:
+    model: gaussian_markov        # smoother, temporally correlated mobility
+    alpha: 0.5                    # memory factor (tunable)
+    mean_speed_mps: 1.0           # ~walking speed (tunable)
+    speed_std_mps: 0.5            # variability (tunable)
+
+  ns3:
+    radio: lte                    # default module to keep compatibility
+    channel_bandwidth_mhz: 20     # total system bandwidth
+    noise_density_dbmhz: -174     # thermal noise PSD
+    ue_tx_power_dbm: 23           # ~200 mW
+    pathloss_model: LogDistance   # placeholder; pick exact model in NS-3 code
+    log_energy: true              # enable Energy model hooks
+    log_link_bytes: true
+    tcp_bridge:
+      host: 127.0.0.1
+      port: 50051
+      reconnect_secs: 2
+
+tasks:
+  arrival:
+    process: poisson
+    lambda_per_user: 0.5          # tasks/sec/user
+  input_mb:
+    dist: uniform
+    low: 10
+    high: 20
+  complexity_megacycles:
+    dist: uniform
+    low: 900
+    high: 1100
+
+compute:
+  mu_cpu_ghz: 1.5
+  edge_cpu_ghz: 15
+
+fl:
+  aggregator: fedavg
+  global_rounds: 100
+  local_epochs: 5
+  clients_per_round: 1.0          # fraction of clients each round (1.0 = all)
+
+agent:
+  type: dueling_dqn
+  hidden_sizes: [128, 128]
+  activation: relu
+  optimizer:
+    name: adam
+    lr: 0.001
+  replay_buffer:
+    type: per
+    capacity: 100000
+    batch_size: 64
+    per_alpha: 0.6
+    per_beta0: 0.4
+    per_beta_anneal_steps: 50000
+  gamma: 0.99
+  target_update_interval: 1000
+
+sparsification:
+  scheme: topk            # 'none' for baseline; 'topk' for proposed
+  k_percent: 10           # used when scheme=topk
+  error_feedback: true    # accumulate residuals
+
+reward:
+  type: energy_latency_weighted
+  weights:
+    latency: 0.5
+    energy: 0.5
+  normalization:
+    latency_ms: minmax          # min/max tracked online per run
+    energy_j: minmax
+
+logging:
+  out_dir: results/exp
+  flush_every_round: true
+  metrics:
+    - comm_bytes_per_round
+    - avg_message_bytes
+    - avg_task_latency_ms
+    - avg_task_energy_j
+    - reward_last10_avg
+  persist:
+    ns3_raw_csv: true           # radio_energy.csv, link_bytes.csv
+    python_logs_csv: true       # per-round metrics

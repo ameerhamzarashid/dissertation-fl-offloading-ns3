@@ -1,0 +1,19 @@
+# Reward/cost definition used by the RL agent
+reward:
+  type: energy_latency_weighted
+  # Reward is defined as:  r = - ( w_l * L_norm + w_e * E_norm )
+  # where L_norm and E_norm are normalized latency (ms) and energy (J).
+  weights:
+    latency: 0.5
+    energy: 0.5
+  normalization:
+    # Choose one of: minmax, zscore, fixed
+    scheme: minmax
+    fixed_scales:               # used only if scheme=fixed
+      latency_ms: 1000.0        # ~1s
+      energy_j: 1.0             # ~1 Joule
+  clip:
+    min: -5.0
+    max: 0.0
+  shaping:
+    per_task_bonus_on_deadline: 0.0

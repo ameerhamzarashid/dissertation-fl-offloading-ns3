@@ -1,0 +1,25 @@
+version: 1
+description: Top-k sparsification sweep for SFEA.
+
+extends: configs/sim_default.yaml
+
+sweep:
+  k_percent: [10, 20, 50]
+
+variant:
+  name: proposed_sfea_sweep
+  sparsification:
+    scheme: topk
+    # k_percent will be taken from sweep list
+    error_feedback: true
+
+logging:
+  out_dir: results/topk_sweep
+  metrics:
+    - comm_bytes_per_round
+    - avg_task_latency_ms
+    - avg_task_energy_j
+    - reward_last10_avg
+  persist:
+    ns3_raw_csv: true
+    python_logs_csv: true

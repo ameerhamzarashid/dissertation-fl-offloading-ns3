@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+pip-wheel-metadata/
+dist/
+build/
+.eggs/
+*.egg-info/
+
+# C/C++ / NS-3 / CMake
+build/
+cmake-build*/
+CMakeCache.txt
+CMakeFiles/
+*.dir/
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+*.exe
+*.pdb
+compile_commands.json
+
+# Logs & results
+logs/
+results/
+data/raw_logs/
+data/processed/
+data/models/
+data/plots/
+
+# OS junk
+.DS_Store
+Thumbs.db

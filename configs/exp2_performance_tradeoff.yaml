@@ -1,0 +1,38 @@
+version: 1
+description: Experiment 2 — Performance trade-off (latency & energy vs comm savings).
+
+extends: configs/sim_default.yaml
+
+simulation:
+  n_mobile_users: 20
+  duration_s: 600
+
+variants:
+  - name: baseline_fedavg_duelingdqn_per
+    sparsification:
+      scheme: none
+    logging:
+      out_dir: results/exp2/baseline
+  - name: proposed_sfea_topk10
+    sparsification:
+      scheme: topk
+      k_percent: 10
+      error_feedback: true
+    logging:
+      out_dir: results/exp2/sfea_topk10
+
+reward:
+  type: energy_latency_weighted
+  weights:
+    latency: 0.5
+    energy: 0.5
+
+logging:
+  metrics:
+    - avg_task_latency_ms
+    - avg_task_energy_j
+    - reward_last10_avg
+    - comm_bytes_per_round
+  persist:
+    ns3_raw_csv: true
+    python_logs_csv: true

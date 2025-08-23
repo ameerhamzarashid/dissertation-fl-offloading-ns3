@@ -1,0 +1,30 @@
+version: 1
+description: Experiment 1 — Communication efficiency (Baseline vs SFEA).
+
+extends: configs/sim_default.yaml
+
+simulation:
+  n_mobile_users: 20
+  duration_s: 600
+
+variants:
+  - name: baseline_fedavg_duelingdqn_per
+    sparsification:
+      scheme: none
+    logging:
+      out_dir: results/exp1/baseline
+  - name: proposed_sfea_topk10
+    sparsification:
+      scheme: topk
+      k_percent: 10
+      error_feedback: true
+    logging:
+      out_dir: results/exp1/sfea_topk10
+
+logging:
+  metrics:
+    - comm_bytes_per_round
+    - avg_message_bytes
+  persist:
+    ns3_raw_csv: true
+    python_logs_csv: true

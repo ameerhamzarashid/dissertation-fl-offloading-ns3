@@ -1,0 +1,32 @@
+version: 1
+description: Experiment 3 — Scalability (N=10/50) and sparsity sensitivity (k=20/50).
+
+extends: configs/sim_default.yaml
+
+matrix:
+  n_mobile_users: [10, 50]
+  k_percent: [20, 50]
+
+# The runner should create runs for each combination of (n_mobile_users, k_percent)
+# with both baseline and proposed variants for fair comparison.
+
+variants:
+  - name: baseline_fedavg_duelingdqn_per
+    sparsification:
+      scheme: none
+  - name: proposed_sfea
+    sparsification:
+      scheme: topk
+      # k_percent is taken from matrix substitution
+      error_feedback: true
+
+logging:
+  out_dir: results/exp3
+  metrics:
+    - comm_bytes_per_round
+    - avg_task_latency_ms
+    - avg_task_energy_j
+    - reward_last10_avg
+  persist:
+    ns3_raw_csv: true
+    python_logs_csv: true
