@@ -20,7 +20,8 @@ def main():
 
     comm = np.array([float(r.get("comm_bytes", 0)) for r in rows], dtype=float)
     energy = np.array([float(r.get("energy_j", 0.0)) for r in rows], dtype=float)
-    lat = np.array([float(r.get("latency_ms", 0.0)) for r in rows], dtype=float)
+    # support either per-round 'latency_ms' or 'avg_latency_ms' (some writers use avg_latency_ms)
+    lat = np.array([float(r.get("latency_ms", r.get("avg_latency_ms", 0.0))) for r in rows], dtype=float)
     os.makedirs(os.path.dirname(args.outp), exist_ok=True)
     with open(args.outp, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["total_comm_bytes","total_energy_j","avg_latency_ms"]) 

@@ -20,7 +20,8 @@ def main():
     else:
         raise SystemExit("Exp2 input not found: " + args.inp)
 
-    lat = np.array([float(r.get("latency_ms", 0.0)) for r in rows], dtype=float)
+    # support either 'latency_ms' or 'avg_latency_ms' depending on upstream writer
+    lat = np.array([float(r.get("latency_ms", r.get("avg_latency_ms", 0.0))) for r in rows], dtype=float)
     eng = np.array([float(r.get("energy_j", 0.0)) for r in rows], dtype=float)
     out_dir = os.path.dirname(args.outp)
     os.makedirs(out_dir, exist_ok=True)

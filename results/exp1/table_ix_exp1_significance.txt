@@ -1,0 +1,5 @@
+Table IX — Paired significance tests (Exp1)
+{"name": "comm_bytes", "n": 3, "mean_diff": 787026840420.3334, "sd_diff": 62564747707.8182, "shapiro_p": 0.1828007926381261, "test": "ttest_rel", "p_value": 0.0020998556522626153, "ci_low": 631607391215.1232, "ci_high": 942446289625.5436, "cohens_d": 12.579397652106014}
+{"name": "energy_j", "n": 3, "mean_diff": 1481.44705, "sd_diff": 106.19489355099707, "shapiro_p": 0.11055834645797524, "test": "ttest_rel", "p_value": 0.0017084398250826506, "ci_low": 1217.6443101379255, "ci_high": 1745.2497898620745, "cohens_d": 13.950266349563949}
+{"name": "avg_latency_ms", "n": 3, "mean_diff": 3333.8748381253704, "sd_diff": 5774.440605708608, "shapiro_p": 7.771561172376096e-16, "test": "wilcoxon", "p_value": 1.0, "ci_low": 0.0, "ci_high": 10001.624514376112, "cohens_d": 0.5773502691896257}
+{"name": "deadline_ok_pct", "n": 3, "mean_diff": -0.7096992227103746, "sd_diff": 1.2292351118265088, "shapiro_p": 7.771561172376096e-16, "test": "wilcoxon", "p_value": 1.0, "ci_low": -2.1290976681311236, "ci_high": 0.0, "cohens_d": -0.5773502691896257}

@@ -1,0 +1,5 @@
+Table VIII — Per-seed online replay performance (Deadline-OK at 1000 ms)
+ seed  deadline_ok_pct_baseline  deadline_ok_pct_sfea  comm_bytes_base  comm_bytes_sfea  energy_j_base  energy_j_sfea  avg_latency_ms_base  avg_latency_ms_sfea
+   42                100.000000                 100.0     946312000000     189262400000     4957.16196     3408.36196         33974.338901         33974.338901
+  123                100.000000                 100.0     931364000000     186272800000     4919.08391     3382.57191         33980.900333         33980.900333
+  999                 97.870902                 100.0    1042702121261     183762400000     4718.09230     3359.06315         44019.390622         34017.766108
