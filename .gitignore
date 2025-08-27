@@ -13,8 +13,14 @@ build/
 *.egg-info/
 
 # C/C++ / NS-3 / CMake
+# ignore common ns-3 build and allinone directories
 build/
 cmake-build*/
+ns-allinone*/
+ns3_allinone*/
+ns3-allinone*/
+ns3_allinone*/
+ns3_module/build/
 CMakeCache.txt
 CMakeFiles/
 *.dir/
@@ -30,13 +36,32 @@ CMakeFiles/
 compile_commands.json
 
 # Logs & results
-logs/
-results/
-data/raw_logs/
-data/processed/
-data/models/
-data/plots/
+# Keep local logs and results tracked by default. If you want to exclude
+# large or intermediate artifacts, add them here or to a per-user gitignore.
+# logs/
+# results/
+# data/raw_logs/
+# data/processed/
+# data/models/
+# data/plots/
 
 # OS junk
 .DS_Store
 Thumbs.db
+# Local large artifacts and virtual environments
+/.venv/
+.venv/
+venv/
+env/
+ENV/
+# Python virtualenv folders sometimes created in the repo root
+/.pyenv/
+
+# Exclude large ns-3 source and build directories
+/ns-allinone*/
+/ns3_allinone*/
+/ns3-allinone*/
+/ns3_module/build/
+
+# Exclude local raw logs (optional - keep if you want to track results)
+data/raw_logs/
