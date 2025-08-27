@@ -85,7 +85,7 @@ private:
   Ptr<ExponentialRandomVariable> m_rng;
   Ptr<UniformRandomVariable> m_sizeUniform;
   Ptr<UniformRandomVariable> m_cyclesUniform;
-  uint64_t m_sizeLow{10*1024*1024}, m_sizeHigh{20*1024*1024};
+  uint64_t m_sizeLow{1*1024*1024}, m_sizeHigh{2*1024*1024};
   double m_cyclesLow{9e8}, m_cyclesHigh{1.1e9};
 
   TaskCallback m_cb;

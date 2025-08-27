@@ -1,0 +1,62 @@
+=== bridge env dump ===
+PYTHON_EXEC=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin/python
+BRIDGE_VARIANT=baseline
+MODEL_PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt
+NUM_PARAMS=1000000
+K_PERCENT=
+EXPLICIT_MODEL_PATH=
+PWD=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3
+WHOAMI=ameerhamza
+PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/home/ameerhamza/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/HP/HP One Agent:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/msys64/mingw64/bin:/mnt/c/msys64/usr/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/Users/ameer/.vscode/extensions/ms-python.debugpy-2025.10.0-win32-x64/bundled/scripts/noConfigScripts:/mnt/c/Users/ameer/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/snap/bin
+=== end env dump ===
+[bridge] background model loader: starting load from /mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt
+[bridge] listening on ('0.0.0.0', 50051)
+[bridge] background model loader: still loading...[bridge] config: variant=baseline num_params=1000000 k_percent=- update_bytes=4000000
+
+[2025-08-26T13:39:44Z] probe:1: /dev/tcp succeeded
+[bridge] client connected: ('127.0.0.1', 51048)
+[bridge] client disconnected: ('127.0.0.1', 51048)
+[bridge] client connected: ('127.0.0.1', 43014)
+[bridge] client connected: ('127.0.0.1', 43016)
+[bridge] client connected: ('127.0.0.1', 43018)
+[bridge] client connected: ('127.0.0.1', 43058)
+[bridge] client connected: ('127.0.0.1', 43064)
+[bridge] client connected: ('127.0.0.1', 43048)
+[bridge] client connected: ('127.0.0.1', 43074)
+[bridge] client connected: ('127.0.0.1', 43090)
+[bridge] client connected: ('127.0.0.1', 43098)
+[bridge] client connected: ('127.0.0.1', 43112)
+[bridge] client connected: ('127.0.0.1', 43118)
+[bridge] client connected: ('127.0.0.1', 43120)
+[bridge] client connected: ('127.0.0.1', 43124)
+[bridge] client connected: ('127.0.0.1', 43136)[bridge] background model loader: still loading...
+
+[bridge] client connected: ('127.0.0.1', 43140)
+[bridge] client connected: ('127.0.0.1', 43166)
+[bridge] client connected: ('127.0.0.1', 43154)
+[bridge] client connected: ('127.0.0.1', 43184)
+[bridge] client connected: ('127.0.0.1', 43182)
+[bridge] client connected: ('127.0.0.1', 43188)
+[bridge] background model loader: still loading...
+[bridge] background model loader: still loading...
+[bridge] background model loader: loaded model from /mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt in 27.1s
+[bridge] client disconnected: ('127.0.0.1', 43018)
+[bridge] client disconnected: ('127.0.0.1', 43014)
+[bridge] client disconnected: ('127.0.0.1', 43016)
+[bridge] client disconnected: ('127.0.0.1', 43064)
+[bridge] client disconnected: ('127.0.0.1', 43048)
+[bridge] client disconnected: ('127.0.0.1', 43058)
+[bridge] client disconnected: ('127.0.0.1', 43074)
+[bridge] client disconnected: ('127.0.0.1', 43090)
+[bridge] client disconnected: ('127.0.0.1', 43098)
+[bridge] client disconnected: ('127.0.0.1', 43112)
+[bridge] client disconnected: ('127.0.0.1', 43118)
+[bridge] client disconnected: ('127.0.0.1', 43120)
+[bridge] client disconnected: ('127.0.0.1', 43124)
+[bridge] client disconnected: ('127.0.0.1', 43136)
+[bridge] client disconnected: ('127.0.0.1', 43188)
+[bridge] client disconnected: ('127.0.0.1', 43140)
+[bridge] client disconnected: ('127.0.0.1', 43154)
+[bridge] client disconnected: ('127.0.0.1', 43166)
+[bridge] client disconnected: ('127.0.0.1', 43182)
+[bridge] client disconnected: ('127.0.0.1', 43184)

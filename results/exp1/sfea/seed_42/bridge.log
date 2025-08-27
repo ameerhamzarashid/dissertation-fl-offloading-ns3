@@ -1,0 +1,57 @@
+=== bridge env dump ===
+PYTHON_EXEC=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin/python
+BRIDGE_VARIANT=sfea
+MODEL_PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/sfea.pt
+NUM_PARAMS=1000000
+K_PERCENT=10
+EXPLICIT_MODEL_PATH=
+PWD=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3
+WHOAMI=ameerhamza
+PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/home/ameerhamza/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/HP/HP One Agent:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/msys64/mingw64/bin:/mnt/c/msys64/usr/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/Users/ameer/.vscode/extensions/ms-python.debugpy-2025.10.0-win32-x64/bundled/scripts/noConfigScripts:/mnt/c/Users/ameer/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/snap/bin
+=== end env dump ===
+[bridge] BRIDGE_VARIANT=sfea; skipping DQN model load
+[bridge] listening on ('0.0.0.0', 50051)
+[bridge] config: variant=sfea num_params=1000000 k_percent=10 update_bytes=800000
+[bridge] client connected: ('127.0.0.1', 44738)
+[bridge] client disconnected: ('127.0.0.1', 44738)
+[2025-08-26T13:46:46Z] probe:1: /dev/tcp succeeded
+[bridge] client connected: ('127.0.0.1', 36884)
+[bridge] client connected: ('127.0.0.1', 36882)
+[bridge] client connected: ('127.0.0.1', 36880)
+[bridge] client connected: ('127.0.0.1', 36906)
+[bridge] client connected: ('127.0.0.1', 36916)
+[bridge] client connected: ('127.0.0.1', 36918)
+[bridge] client connected: ('127.0.0.1', 36934)
+[bridge] client connected: ('127.0.0.1', 36942)
+[bridge] client connected: ('127.0.0.1', 36950)
+[bridge] client connected: ('127.0.0.1', 36960)
+[bridge] client connected: ('127.0.0.1', 36968)
+[bridge] client connected: ('127.0.0.1', 36970)
+[bridge] client connected: ('127.0.0.1', 36984)
+[bridge] client connected: ('127.0.0.1', 36988)
+[bridge] client connected: ('127.0.0.1', 36998)
+[bridge] client connected: ('127.0.0.1', 37002)
+[bridge] client connected: ('127.0.0.1', 37016)
+[bridge] client connected: ('127.0.0.1', 37032)
+[bridge] client connected: ('127.0.0.1', 37038)
+[bridge] client connected: ('127.0.0.1', 37044)
+[bridge] client disconnected: ('127.0.0.1', 36880)
+[bridge] client disconnected: ('127.0.0.1', 36882)
+[bridge] client disconnected: ('127.0.0.1', 36884)
+[bridge] client disconnected: ('127.0.0.1', 36906)
+[bridge] client disconnected: ('127.0.0.1', 36916)
+[bridge] client disconnected: ('127.0.0.1', 36918)
+[bridge] client disconnected: ('127.0.0.1', 36934)
+[bridge] client disconnected: ('127.0.0.1', 36942)
+[bridge] client disconnected: ('127.0.0.1', 36950)
+[bridge] client disconnected: ('127.0.0.1', 37038)
+[bridge] client disconnected: ('127.0.0.1', 36960)
+[bridge] client disconnected: ('127.0.0.1', 36968)
+[bridge] client disconnected: ('127.0.0.1', 36970)
+[bridge] client disconnected: ('127.0.0.1', 36984)
+[bridge] client disconnected: ('127.0.0.1', 36988)
+[bridge] client disconnected: ('127.0.0.1', 36998)
+[bridge] client disconnected: ('127.0.0.1', 37002)
+[bridge] client disconnected: ('127.0.0.1', 37016)
+[bridge] client disconnected: ('127.0.0.1', 37032)
+[bridge] client disconnected: ('127.0.0.1', 37044)

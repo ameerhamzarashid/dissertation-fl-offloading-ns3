@@ -1,0 +1,14 @@
+=== bridge env dump ===
+PYTHON_EXEC=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin/python
+BRIDGE_VARIANT=baseline
+MODEL_PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt
+NUM_PARAMS=1000000
+K_PERCENT=
+EXPLICIT_MODEL_PATH=
+PWD=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3
+WHOAMI=ameerhamza
+PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/home/ameerhamza/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/HP/HP One Agent:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/msys64/mingw64/bin:/mnt/c/msys64/usr/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/Users/ameer/.vscode/extensions/ms-python.debugpy-2025.10.0-win32-x64/bundled/scripts/noConfigScripts:/mnt/c/Users/ameer/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/snap/bin
+=== end env dump ===
+[bridge] No trained model loaded (MODEL_PATH not set or file missing) for baseline
+[bridge] listening on ('0.0.0.0', 50051)
+[bridge] config: variant=baseline num_params=1000000 k_percent= update_bytes=4000000

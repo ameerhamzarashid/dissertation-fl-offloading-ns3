@@ -1,0 +1,110 @@
+=== bridge env dump ===
+PYTHON_EXEC=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin/python
+BRIDGE_VARIANT=baseline
+MODEL_PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt
+NUM_PARAMS=1000000
+K_PERCENT=
+EXPLICIT_MODEL_PATH=
+PWD=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3
+WHOAMI=ameerhamza
+PATH=/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/.venv/bin:/home/ameerhamza/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/HP/HP One Agent:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/msys64/mingw64/bin:/mnt/c/msys64/usr/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Users/ameer/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ameer/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/R/R-4.4.2/bin/x64:/mnt/c/Users/ameer/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/ameer/AppData/Roaming/npm:/mnt/c/Users/ameer/.vscode/extensions/ms-python.debugpy-2025.10.0-win32-x64/bundled/scripts/noConfigScripts:/mnt/c/Users/ameer/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/snap/bin
+=== end env dump ===
+[2025-08-26T13:09:04Z] probe:1: python connect failed
+[2025-08-26T13:09:05Z] probe:2: python connect failed
+[2025-08-26T13:09:09Z] probe:3: python connect failed
+[2025-08-26T13:09:12Z] probe:4: python connect failed
+[2025-08-26T13:09:13Z] probe:5: python connect failed
+[2025-08-26T13:09:15Z] probe:6: python connect failed
+[2025-08-26T13:09:16Z] probe:7: python connect failed
+[2025-08-26T13:09:17Z] probe:8: python connect failed
+[2025-08-26T13:09:18Z] probe:9: python connect failed
+[2025-08-26T13:09:19Z] probe:10: python connect failed
+[2025-08-26T13:09:21Z] probe:11: python connect failed
+[2025-08-26T13:09:22Z] probe:12: python connect failed
+[2025-08-26T13:09:23Z] probe:13: python connect failed
+[2025-08-26T13:09:24Z] probe:14: python connect failed
+[2025-08-26T13:09:26Z] probe:15: python connect failed
+[2025-08-26T13:09:27Z] probe:16: python connect failed
+[2025-08-26T13:09:27Z] probe:17: python connect failed
+[2025-08-26T13:09:28Z] probe:18: python connect failed
+[2025-08-26T13:09:29Z] probe:19: python connect failed
+[2025-08-26T13:09:30Z] probe:20: python connect failed
+[2025-08-26T13:09:31Z] probe:21: python connect failed
+[2025-08-26T13:09:32Z] probe:22: python connect failed
+[2025-08-26T13:09:33Z] probe:23: python connect failed
+[2025-08-26T13:09:34Z] probe:24: python connect failed
+[2025-08-26T13:09:36Z] probe:25: python connect failed
+[2025-08-26T13:09:37Z] probe:26: python connect failed
+[2025-08-26T13:09:38Z] probe:27: python connect failed
+[2025-08-26T13:09:39Z] probe:28: python connect failed
+[2025-08-26T13:09:40Z] probe:29: python connect failed
+[2025-08-26T13:09:41Z] probe:30: python connect failed
+[2025-08-26T13:09:42Z] probe:31: python connect failed
+[2025-08-26T13:09:43Z] probe:32: python connect failed
+[2025-08-26T13:09:45Z] probe:33: python connect failed
+[2025-08-26T13:09:46Z] probe:34: python connect failed
+[2025-08-26T13:09:47Z] probe:35: python connect failed
+[2025-08-26T13:09:48Z] probe:36: python connect failed
+[2025-08-26T13:09:49Z] probe:37: python connect failed
+[2025-08-26T13:09:50Z] probe:38: python connect failed
+[2025-08-26T13:09:52Z] probe:39: python connect failed
+[2025-08-26T13:09:53Z] probe:40: python connect failed
+[2025-08-26T13:09:54Z] probe:41: python connect failed
+[2025-08-26T13:09:55Z] probe:42: python connect failed
+[2025-08-26T13:09:56Z] probe:43: python connect failed
+[2025-08-26T13:09:57Z] probe:44: python connect failed
+[2025-08-26T13:09:58Z] probe:45: python connect failed
+[2025-08-26T13:09:58Z] probe:46: python connect failed
+[2025-08-26T13:09:59Z] probe:47: python connect failed
+[2025-08-26T13:10:00Z] probe:48: python connect failed
+[2025-08-26T13:10:01Z] probe:49: python connect failed
+[2025-08-26T13:10:02Z] probe:50: python connect failed
+[2025-08-26T13:10:04Z] probe:51: python connect failed
+[2025-08-26T13:10:05Z] probe:52: python connect failed
+[2025-08-26T13:10:06Z] probe:53: python connect failed
+[bridge] Loaded model from /mnt/c/Users/ameer/Downloads/KF7029-MEC-FL-NS3/data/models/dueling_dqn.pt
+[bridge] listening on ('0.0.0.0', 50051)
+[bridge] config: variant=baseline num_params=1000000 k_percent=- update_bytes=4000000
+[bridge] client connected: ('127.0.0.1', 60710)
+[bridge] client disconnected: ('127.0.0.1', 60710)
+[2025-08-26T13:10:07Z] probe:54: /dev/tcp succeeded
+[bridge] client connected: ('127.0.0.1', 60720)
+[bridge] client connected: ('127.0.0.1', 60760)
+[bridge] client connected: ('127.0.0.1', 60772)
+[bridge] client connected: ('127.0.0.1', 60744)
+[bridge] client connected: ('127.0.0.1', 60734)
+[bridge] client connected: ('127.0.0.1', 60756)
+[bridge] client connected: ('127.0.0.1', 60784)
+[bridge] client connected: ('127.0.0.1', 60796)
+[bridge] client connected: ('127.0.0.1', 60804)
+[bridge] client connected: ('127.0.0.1', 60822)
+[bridge] client connected: ('127.0.0.1', 60834)
+[bridge] client connected: ('127.0.0.1', 60848)
+[bridge] client connected: ('127.0.0.1', 60868)
+[bridge] client connected: ('127.0.0.1', 60876)
+[bridge] client connected: ('127.0.0.1', 60898)
+[bridge] client connected: ('127.0.0.1', 60862)
+[bridge] client connected: ('127.0.0.1', 60910)
+[bridge] client connected: ('127.0.0.1', 60812)
+[bridge] client connected: ('127.0.0.1', 60888)
+[bridge] client connected: ('127.0.0.1', 60908)
+[bridge] client disconnected: ('127.0.0.1', 60720)
+[bridge] client disconnected: ('127.0.0.1', 60734)
+[bridge] client disconnected: ('127.0.0.1', 60744)
+[bridge] client disconnected: ('127.0.0.1', 60756)
+[bridge] client disconnected: ('127.0.0.1', 60784)
+[bridge] client disconnected: ('127.0.0.1', 60760)
+[bridge] client disconnected: ('127.0.0.1', 60772)
+[bridge] client disconnected: ('127.0.0.1', 60834)
+[bridge] client disconnected: ('127.0.0.1', 60908)
+[bridge] client disconnected: ('127.0.0.1', 60796)
+[bridge] client disconnected: ('127.0.0.1', 60804)
+[bridge] client disconnected: ('127.0.0.1', 60910)
+[bridge] client disconnected: ('127.0.0.1', 60812)
+[bridge] client disconnected: ('127.0.0.1', 60848)
+[bridge] client disconnected: ('127.0.0.1', 60822)
+[bridge] client disconnected: ('127.0.0.1', 60862)
+[bridge] client disconnected: ('127.0.0.1', 60868)
+[bridge] client disconnected: ('127.0.0.1', 60876)
+[bridge] client disconnected: ('127.0.0.1', 60888)
+[bridge] client disconnected: ('127.0.0.1', 60898)

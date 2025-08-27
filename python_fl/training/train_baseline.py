@@ -50,9 +50,18 @@ def main():
     agg = fedavg.aggregate(grads)
     _ = agg  # no-op
 
+
     # Write a minimal metrics file to validate pipeline
     metrics.log_round(round_i=0, comm_bytes=123456, latency_ms=123.4, energy_j=0.78, reward=-0.5)
     metrics.flush()
+
+    # Save trained model
+    model_dir = os.path.join("data", "models")
+    os.makedirs(model_dir, exist_ok=True)
+    model_path = os.path.join(model_dir, "dueling_dqn.pt")
+    import torch
+    torch.save(agent.q.state_dict(), model_path)
+    print(f"Saved model to {model_path}")
 
 if __name__ == "__main__":
     main()

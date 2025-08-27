@@ -34,9 +34,37 @@ def main():
     agg = sfea.aggregate(comps)
     _ = agg  # no-op
 
+
     # Write minimal metrics
     metrics.log_round(round_i=0, comm_bytes=45678, latency_ms=98.7, energy_j=0.42, reward=-0.3)
     metrics.flush()
+
+    # Save trained model
+    model_dir = os.path.join("data", "models")
+    os.makedirs(model_dir, exist_ok=True)
+    model_path = os.path.join(model_dir, "sfea.pt")
+    import torch
+    # Construct a serializable state dict for SFEA. Top-k sparsifier keeps a residual
+    # buffer per client; save the key knobs and the residuals (converted to lists).
+    save_dict = {
+        'k_percent': float(getattr(sfea.sparsifier, 'k_percent', k_percent)),
+        'error_feedback': bool(getattr(sfea.sparsifier, 'error_feedback', error_feedback)),
+        'sparsifier_residuals': {},
+    }
+    # _residual may contain numpy arrays; convert to lists for JSON/pickle safety
+    residuals = getattr(sfea.sparsifier, '_residual', {}) or {}
+    for k, v in residuals.items():
+        try:
+            save_dict['sparsifier_residuals'][k] = v.tolist()
+        except Exception:
+            # fallback: store shape only
+            try:
+                save_dict['sparsifier_residuals'][k] = {'shape': getattr(v, 'shape', None)}
+            except Exception:
+                save_dict['sparsifier_residuals'][k] = None
+
+    torch.save(save_dict, model_path)
+    print(f"Saved SFEA state to {model_path} (keys: {list(save_dict.keys())})")
 
 if __name__ == "__main__":
     main()

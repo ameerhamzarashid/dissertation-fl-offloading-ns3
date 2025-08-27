@@ -115,6 +115,7 @@ public:
       Ptr<BridgeClient> bridge = CreateObject<BridgeClient>();
       bridge->Configure(m_params.bridgeHost, m_params.bridgePort);
       bridge->SetNode(ue);
+  bridge->Connect(); // start background thread and connect early
 
       Ptr<OffloadApp> app = CreateObject<OffloadApp>();
       app->SetNode(ue);
